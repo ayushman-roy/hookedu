@@ -1,14 +1,19 @@
 import express from "express";
-import { getUsers, Register, Login, Logout } from "../controllers/Users.js";
-import { verifyToken } from "../middleware/VerifyToken.js";
-import { refreshToken } from "../controllers/RefreshToken.js";
+import { pre_register_get, pre_register_post } from "../controllers/Users.js";
+// import { verifyToken } from "../middleware/VerifyToken.js";
+// import { refreshToken } from "../controllers/RefreshToken.js";
 
-const home = express.Router();
+const register = express.Router();
 
-home.get("/console", verifyToken, getUsers);
-home.post("/register", Register);
-home.get("/refreshtokenlogin", refreshToken);
-home.post("/login", Login);
-home.delete("/logout", Logout);
+register.get("/", pre_register_get);
+register.post("/", pre_register_post);
+// register.get("/verify", verify_otp_get);
+// register.post("/verify", verify_otp_post);
+// register.get("/data", register_get);
+// register.post("/data", register_post);
 
-export default home;
+// base.get("/", refreshToken);
+// base.post("/login", Login);
+// base.delete("/logout", Logout);
+
+export { register };

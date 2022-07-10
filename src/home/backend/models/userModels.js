@@ -1,7 +1,29 @@
 import { Sequelize } from "sequelize";
 import database from "../config/database.js";
 
-var campus = ["@ashoka.edu.in", "@jgu.edu.in"];
+const Pre_User = database.define(
+  "pre-user",
+  {
+    email: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: true,
+      },
+    },
+    password: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    otp: {
+      type: Sequelize.INTEGER,
+    },
+  },
+  {
+    freezeTableName: true,
+  }
+);
 
 const User = database.define("user", {
   id: {
@@ -18,19 +40,6 @@ const User = database.define("user", {
     type: Sequelize.STRING,
     allowNull: false,
     unique: true,
-    validate: {
-      isEmail: true,
-      checkSchool(value) {
-        let valid = false;
-        for (let school in campus) {
-          valid = value.endsWith(`${school}`);
-          if (valid) {
-            break;
-          }
-        }
-        return valid;
-      },
-    },
   },
   password: {
     type: Sequelize.STRING,
@@ -39,10 +48,6 @@ const User = database.define("user", {
   age: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    validate: {
-      max: 40,
-      min: 15,
-    },
   },
   gender: {
     type: Sequelize.STRING,
@@ -52,7 +57,7 @@ const User = database.define("user", {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      isIn: [["M", "F", "Any"]],
+      isIn: [["Men", "Women", "Everyone"]],
     },
   },
   school: {
@@ -76,11 +81,14 @@ const User = database.define("user", {
   matches: {
     type: Sequelize.JSON,
   },
-  exhausted_swipes: {
+  swipes_exhausted_time: {
     type: Sequelize.DATE,
   },
   donation: {
     type: Sequelize.INTEGER,
+  },
+  register_status: {
+    type: Sequelize.BOOLEAN,
   },
   refresh_token: {
     type: Sequelize.TEXT,
@@ -91,4 +99,4 @@ const User = database.define("user", {
   await database.sync();
 })();
 
-export default User;
+export { User, Pre_User };

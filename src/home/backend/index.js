@@ -2,13 +2,14 @@ import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import db from "./config/Database.js";
-import router from "./routes/index.js";
+import database from "./config/Database.js";
+import { register } from "./routes/index.js";
+
 dotenv.config();
 const app = express();
 
 try {
-  await db.authenticate();
+  await database.authenticate();
   console.log("Database Connected...");
 } catch (error) {
   console.error(error);
@@ -17,6 +18,6 @@ try {
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(cookieParser());
 app.use(express.json());
-app.use(router);
+app.use("/register", register);
 
-app.listen(3000, () => console.log("Server Running at Port 3000"));
+app.listen(3000, () => console.log("Server at Port 3000"));
