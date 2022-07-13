@@ -66,7 +66,7 @@ export const pre_register_post = async (req, res) => {
 };
 
 export const verify_otp_get = async (req, res) => {
-  res.sendFile("../../frontend-test/register/verify.html");
+  res.sendFile("/Users/ayushmanroy/hookedu/src/home/frontend-test/register/verify.html");
 };
 
 export const verify_otp_post = async (req, res) => {
@@ -80,7 +80,7 @@ export const verify_otp_post = async (req, res) => {
 };
 
 export const register_get = async (req, res) => {
-  res.sendFile("../../frontend-test/register/data.html");
+  res.sendFile("/Users/ayushmanroy/hookedu/src/home/frontend-test/register/data.html");
 };
 
 export const register_post = async (req, res) => {
