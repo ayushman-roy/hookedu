@@ -1,5 +1,5 @@
-import { User, Pre_User } from "../models/userModel.js";
-import { schoolCheck } from "./checks";
+import { User, Pre_User } from "../models/userModels.js";
+import { schoolCheck } from "./checks.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import otp from "otp-generator";
@@ -11,7 +11,7 @@ var otp_config = {
 };
 
 export const pre_register_get = async (req, res) => {
-  res.sendFile("../../frontend-test/register/start.html");
+  res.sendFile("/Users/ayushmanroy/hookedu/src/home/frontend-test/register/start.html");
 };
 
 export const pre_register_post = async (req, res) => {

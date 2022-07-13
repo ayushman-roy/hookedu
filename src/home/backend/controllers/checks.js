@@ -1,11 +1,12 @@
-export const schoolCheck = (value) => {
+export function schoolCheck(value) {
   let campus = ["@ashoka.edu.in", "@jgu.edu.in"];
   let valid = false;
+  let email = String(value);
   for (let school in campus) {
-    valid = value.endsWith(`${school}`);
+    valid = email.endsWith(`${school}`);
     if (valid) {
       break;
     }
   }
   return valid;
-};
+}
