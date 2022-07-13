@@ -11,12 +11,10 @@ var otp_config = {
 };
 
 export const pre_register_get = async (req, res) => {
-  // TODO: convert to react
   res.sendFile("../../frontend-test/register/start.html");
 };
 
 export const pre_register_post = async (req, res) => {
-  // MAYBE: change to req.body.[value]
   const { email, password } = req.body;
   if (schoolCheck(email) == false)
     return res
@@ -24,10 +22,9 @@ export const pre_register_post = async (req, res) => {
       .json({ msg: "Invalid Email! Please Use Your University Email." });
   const users = await User.findOne({ where: { email: email } });
   if (users != null)
-    // TODO: redirect to login page
     return res
       .json({ msg: "You Have Registered Already!" })
-      .redirect(400, "back");
+      .redirect(400, "login");
   const pre_user = await Pre_User.findOne({ where: { email: email } });
   const user_otp = otp.generate(6, otp_config);
   const salt = await bcrypt.genSalt();
@@ -37,8 +34,11 @@ export const pre_register_post = async (req, res) => {
       pre_user.password = hashPassword;
       pre_user.otp = user_otp;
       await pre_user.save();
-      // TODO: send OTP and redirect to OTP verify (register/verify)
-      return res.json();
+      res
+        .cookie("email", email)
+        .cookie("password", hashPassword)
+        .cookie("otp", user_otp)
+        .redirect("next");
     } catch (error) {
       console.log(error);
       res
@@ -52,8 +52,11 @@ export const pre_register_post = async (req, res) => {
       password: hashPassword,
       otp: user_otp,
     });
-    // TODO: send OTP and redirect to OTP verify (register/verify)
-    return res.json();
+    res
+      .cookie("email", email)
+      .cookie("password", hashPassword)
+      .cookie("otp", user_otp)
+      .redirect("next");
   } catch (error) {
     console.log(error);
     res
@@ -62,39 +65,32 @@ export const pre_register_post = async (req, res) => {
   }
 };
 
-export const getUsers = async (req, res) => {
-  try {
-    const users = await User.findAll({ attributes: ["email"] });
-    res.json(users);
-  } catch (error) {
-    console.log(error);
-  }
+export const verify_otp_get = async (req, res) => {
+  res.sendFile("../../frontend-test/register/verify.html");
 };
 
-export const Register = async (req, res) => {
-  const {
-    name,
-    email,
-    password,
-    confPassword,
-    age,
-    gender,
-    interest,
-    school,
-    batch,
-    bio,
-  } = req.body;
-  if (password !== confPassword)
-    return res
-      .status(400)
-      .json({ msg: "Password and Confirm Password Do Not Match!" });
-  const salt = await bcrypt.genSalt();
-  const hashPassword = await bcrypt.hash(password, salt);
+export const verify_otp_post = async (req, res) => {
+  const { email, otp } = req.cookies;
+  // TODO: send_OTP(send_email, otp)
+  const user_otp = req.body.otp;
+  if (user_otp == otp) {
+    res.redirect("next");
+  }
+  res.redirect(400, "back").json({ msg: "Invalid OTP!" });
+};
+
+export const register_get = async (req, res) => {
+  res.sendFile("../../frontend-test/register/data.html");
+};
+
+export const register_post = async (req, res) => {
+  const { name, age, gender, interest, school, batch, bio } = req.body;
+  const { email, password } = req.cookies;
   try {
     await User.create({
       name: name,
       email: email,
-      password: hashPassword,
+      password: password,
       age: age,
       gender: gender,
       interest: interest,
@@ -102,9 +98,12 @@ export const Register = async (req, res) => {
       batch: batch,
       bio: bio,
     });
-    res.json({ msg: "Registration Successful!" });
+    res.redirect("hard-login").json({ msg: "Registration Successful!" });
   } catch (error) {
     console.log(error);
+    res
+      .redirect(500, "back")
+      .json({ msg: "Something Went Wrong! Please Try Again!" });
   }
 };
 

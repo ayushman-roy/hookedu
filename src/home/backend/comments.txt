@@ -1,5 +1,0 @@
-References:
-
-null object findAll(): 
-https://sequelize.org/docs/v6/core-concepts/model-querying-finders/#findbypk
-

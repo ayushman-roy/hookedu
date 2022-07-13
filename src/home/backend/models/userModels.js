@@ -87,9 +87,6 @@ const User = database.define("user", {
   donation: {
     type: Sequelize.INTEGER,
   },
-  register_status: {
-    type: Sequelize.BOOLEAN,
-  },
   refresh_token: {
     type: Sequelize.TEXT,
   },
