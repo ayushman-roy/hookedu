@@ -46,23 +46,24 @@ export const pre_register_post = async (req, res) => {
         .redirect(500, "back")
         .json({ msg: "Something Went Wrong! Please Try Again!" });
     }
-  }
-  try {
-    await Pre_User.create({
-      email: email,
-      password: hashPassword,
-      otp: user_otp,
-    });
-    res
-      .cookie("email", email)
-      .cookie("password", hashPassword)
-      .cookie("otp", user_otp)
-      .redirect("next");
-  } catch (error) {
-    console.log(error);
-    res
-      .redirect(500, "back")
-      .json({ msg: "Something Went Wrong! Please Try Again!" });
+  } else {
+    try {
+      await Pre_User.create({
+        email: email,
+        password: hashPassword,
+        otp: user_otp,
+      });
+      res
+        .cookie("email", email)
+        .cookie("password", hashPassword)
+        .cookie("otp", user_otp)
+        .redirect("next");
+    } catch (error) {
+      console.log(error);
+      res
+        .redirect(500, "back")
+        .json({ msg: "Something Went Wrong! Please Try Again!" });
+    }
   }
 };
 
@@ -78,8 +79,9 @@ export const verify_otp_post = async (req, res) => {
   const user_otp = req.body.otp;
   if (user_otp == otp) {
     res.redirect("next");
+  } else {
+    res.redirect(400, "back").json({ msg: "Invalid OTP!" });
   }
-  res.redirect(400, "back").json({ msg: "Invalid OTP!" });
 };
 
 export const register_get = async (req, res) => {
