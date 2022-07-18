@@ -8,5 +8,3 @@ high suspect: the user != null not evaluated and direct newuser made
 FIXED: ERR_HTTP_HEADERS_SENT:
 cannot set headers after they are sent to the client
 something to do with .redirect(500, "back") in the error blocks
-
-last errors checked for: verify_otp_get

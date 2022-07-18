@@ -105,77 +105,53 @@ export const register_post = async (req, res) => {
       batch: batch,
       bio: bio,
     });
-    res.redirect("hard-login").json({ msg: "Registration Successful!" });
+    res.json({ msg: "Registration Successful!" }).redirect("hard-login");
   } catch (error) {
     console.log(error);
     res
-      .redirect(500, "back")
-      .json({ msg: "Something Went Wrong! Please Try Again!" });
+      .json({ msg: "Something Went Wrong! Please Try Again!" })
+      .redirect(500, "back");
   }
 };
 
-export const Login = async (req, res) => {
+export const login_get = async (req, res) => {
+  res.sendFile(
+    "/Users/ayushmanroy/hookedu/src/home/frontend-test/login/main.html"
+  );
+};
+
+export const login_post = async (req, res) => {
   try {
-    const user = await User.findAll({
+    const { email, password } = req.body;
+    const user = await User.findOne({
       where: {
-        email: req.body.email,
+        email: email,
       },
     });
-    const match = await bcrypt.compare(req.body.password, user[0].password);
+    const match = await bcrypt.compare(password, user.password);
     if (!match) return res.status(400).json({ msg: "Wrong Password!" });
-    const userId = user[0].id;
-    const name = user[0].name;
-    const email = user[0].email;
-    const accessToken = jwt.sign(
-      { userId, name, email },
-      process.env.ACCESS_TOKEN_SECRET,
-      {
-        expiresIn: "15s",
-      }
-    );
-    const refreshToken = jwt.sign(
-      { userId, name, email },
-      process.env.REFRESH_TOKEN_SECRET,
-      {
-        expiresIn: "1d",
-      }
-    );
-    await User.update(
-      { refresh_token: refreshToken },
-      {
-        where: {
-          id: userId,
-        },
-      }
-    );
+    const accessToken = jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
+      expiresIn: "30s",
+    });
+    const refreshToken = jwt.sign({ email }, process.env.REFRESH_TOKEN_SECRET, {
+      expiresIn: "1d",
+    });
+    user.set({ refresh_token: refreshToken });
+    await user.save();
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000,
     });
     res.json({ accessToken });
   } catch (error) {
-    res.status(404).json({ msg: "Email Not Found! Please Register First!" });
+    res
+      .json({ msg: "Email Not Found! Please Register First!" })
+      .redirect(404, "register");
   }
 };
 
-export const Logout = async (req, res) => {
-  const refreshToken = req.cookies.refreshToken;
-  if (!refreshToken) return res.sendStatus(204);
-  const user = await User.findAll({
-    where: {
-      refresh_token: refreshToken,
-    },
-  });
-  if (!user[0]) return res.sendStatus(204);
-  const userId = user[0].id;
-  await User.update(
-    { refresh_token: null },
-    {
-      where: {
-        id: userId,
-      },
-    }
+export const home_get = async (req, res) => {
+  res.sendFile(
+    "/Users/ayushmanroy/hookedu/src/home/frontend-test/home/main.html"
   );
-  res.clearCookie("refreshToken");
-  return res.sendStatus(200);
 };
