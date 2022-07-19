@@ -94,6 +94,12 @@ export const register_post = async (req, res) => {
   const { name, age, gender, interest, school, batch, bio } = req.body;
   const { email, password } = req.cookies;
   try {
+    const accessToken = jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
+      expiresIn: "1800s",
+    });
+    const refreshToken = jwt.sign({ email }, process.env.REFRESH_TOKEN_SECRET, {
+      expiresIn: "15d",
+    });
     await User.create({
       name: name,
       email: email,
@@ -104,8 +110,19 @@ export const register_post = async (req, res) => {
       school: school,
       batch: batch,
       bio: bio,
+      refresh_token: refreshToken,
     });
-    res.json({ msg: "Registration Successful!" }).redirect("hard-login");
+    res
+      .cookie("refreshToken", refreshToken, {
+        httpOnly: true,
+        maxAge: 15 * 24 * 60 * 60 * 1000,
+      })
+      .cookie("accessToken", accessToken, {
+        httpOnly: true,
+        maxAge: 30 * 60 * 1000,
+      })
+      .json({ msg: "Registration Successful!" })
+      .redirect("console");
   } catch (error) {
     console.log(error);
     res
@@ -131,18 +148,23 @@ export const login_post = async (req, res) => {
     const match = await bcrypt.compare(password, user.password);
     if (!match) return res.status(400).json({ msg: "Wrong Password!" });
     const accessToken = jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: "30s",
+      expiresIn: "1800s",
     });
     const refreshToken = jwt.sign({ email }, process.env.REFRESH_TOKEN_SECRET, {
-      expiresIn: "1d",
+      expiresIn: "15d",
     });
     user.set({ refresh_token: refreshToken });
     await user.save();
-    res.cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000,
-    });
-    res.json({ accessToken });
+    res
+      .cookie("refreshToken", refreshToken, {
+        httpOnly: true,
+        maxAge: 15 * 24 * 60 * 60 * 1000,
+      })
+      .cookie("accessToken", accessToken, {
+        httpOnly: true,
+        maxAge: 30 * 60 * 1000,
+      })
+      .redirect("console");
   } catch (error) {
     res
       .json({ msg: "Email Not Found! Please Register First!" })

@@ -1,6 +1,6 @@
 import express from "express";
 import * as users from "../controllers/Users.js";
-import * as middleware from "../middleware/verifyToken.js";
+import * as access_control_middleware from "../middleware/accessControl.js";
 
 const register = express.Router();
 const login = express.Router();
@@ -16,6 +16,6 @@ register.post("/data", users.register_post);
 login.get("/", users.login_get);
 login.post("/", users.login_post);
 
-home.get("/", middleware.verifyToken, users.home_get);
+home.get("/", access_control_middleware.verify_user, users.home_get);
 
 export { register, login, home };
