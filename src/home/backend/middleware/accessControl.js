@@ -27,6 +27,7 @@ export const verify_user = (req, res, next) => {
         res.cookie("accessToken", user_access_token, {
           httpOnly: true,
           maxAge: 30 * 60 * 1000,
+          secure: true,
         });
         req.email = user_email;
         next();

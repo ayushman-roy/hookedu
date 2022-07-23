@@ -10,9 +10,16 @@ cannot set headers after they are sent to the client
 something to do with .redirect(500, "back") in the error blocks
 
 TODO: COOKIE_SETTINGS:
-add options to cookies that may need it: user_auth(path)
-final tests; pre-deployment
+set PATH values for cookies after final structure
+set critical cookies to SIGNED and ENCRYPTED
 
 TODO: USER_AUTH_LEFTOVERS:
 forgot password & image upload flow,
 otp send_service
+
+TODO: USER_RE_AUTH:
+flow to /login and /register when user_session active
+
+INFO: COOKIE_COUNT:
+current: 7 [session: 5; persist: 2]
+max: 60

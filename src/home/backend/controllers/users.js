@@ -36,9 +36,10 @@ export const pre_register_post = async (req, res) => {
       pre_user.set({ password: hashPassword, otp: user_otp });
       await pre_user.save();
       res
-        .cookie("email", email)
-        .cookie("password", hashPassword)
-        .cookie("otp", user_otp)
+        .cookie("email", email, { httpOnly: true, secure: true })
+        .cookie("password", hashPassword, { httpOnly: true, secure: true })
+        .cookie("otp", user_otp, { httpOnly: true, secure: true })
+        .cookie("auth_otp", true, { httpOnly: true })
         .redirect("next");
     } catch (error) {
       console.log(error);
@@ -54,9 +55,10 @@ export const pre_register_post = async (req, res) => {
         otp: user_otp,
       });
       res
-        .cookie("email", email)
-        .cookie("password", hashPassword)
-        .cookie("otp", user_otp)
+        .cookie("email", email, { httpOnly: true, secure: true })
+        .cookie("password", hashPassword, { httpOnly: true, secure: true })
+        .cookie("otp", user_otp, { httpOnly: true, secure: true })
+        .cookie("auth_otp", true, { httpOnly: true })
         .redirect("next");
     } catch (error) {
       console.log(error);
@@ -68,26 +70,34 @@ export const pre_register_post = async (req, res) => {
 };
 
 export const verify_otp_get = async (req, res) => {
-  res.sendFile(
-    "/Users/ayushmanroy/hookedu/src/home/frontend-test/register/verify.html"
-  );
+  if (req.cookies.auth_otp == true) {
+    res.sendFile(
+      "/Users/ayushmanroy/hookedu/src/home/frontend-test/register/verify.html"
+    );
+  } else {
+    res.redirect(401, "pre-register");
+  }
 };
 
 export const verify_otp_post = async (req, res) => {
   const { email, otp } = req.cookies;
-  // TODO: send_OTP(send_email, otp)
+  // TODO: send_OTP(email, otp)
   const user_otp = req.body.otp;
   if (user_otp == otp) {
-    res.redirect("next");
+    res.cookie("auth_data", true, { httpOnly: true }).redirect("next");
   } else {
     res.redirect(400, "back").json({ msg: "Invalid OTP!" });
   }
 };
 
 export const register_get = async (req, res) => {
-  res.sendFile(
-    "/Users/ayushmanroy/hookedu/src/home/frontend-test/register/data.html"
-  );
+  if (req.cookies.auth_data == true) {
+    res.sendFile(
+      "/Users/ayushmanroy/hookedu/src/home/frontend-test/register/data.html"
+    );
+  } else {
+    res.redirect(401, "otp-verify");
+  }
 };
 
 export const register_post = async (req, res) => {
@@ -116,11 +126,15 @@ export const register_post = async (req, res) => {
       .cookie("refreshToken", refreshToken, {
         httpOnly: true,
         maxAge: 15 * 24 * 60 * 60 * 1000,
+        secure: true,
       })
       .cookie("accessToken", accessToken, {
         httpOnly: true,
         maxAge: 30 * 60 * 1000,
+        secure: true,
       })
+      .clearCookie("auth_otp")
+      .clearCookie("auth_data")
       .json({ msg: "Registration Successful!" })
       .redirect("console");
   } catch (error) {
@@ -159,10 +173,12 @@ export const login_post = async (req, res) => {
       .cookie("refreshToken", refreshToken, {
         httpOnly: true,
         maxAge: 15 * 24 * 60 * 60 * 1000,
+        secure: true,
       })
       .cookie("accessToken", accessToken, {
         httpOnly: true,
         maxAge: 30 * 60 * 1000,
+        secure: true,
       })
       .redirect("console");
   } catch (error) {
