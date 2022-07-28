@@ -1,8 +1,9 @@
-// import React, { Component } from 'react'
-import Registration from "./Pages/Registration";
+import Registration from "./Pages/Registration.jsx";
 import Loginn from "./Pages/Loginn";
-import Login from "./Pages/Login";
-import {Route, Link} from 'react-router-dom'
+import Profile from "./Pages/Profile"
+import Chat from "./Pages/Chat"
+
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 
 //  Defining my custom theme i.e color
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -22,12 +23,14 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-    <Loginn/>
-    {/* <Route path="/" component={Registration}/>
-    <Route path="/reg" component={Registration}/>
-    <Route path="/Loginn" component={Loginn}/> */}
-    
-     <Registration/>
+    <Router>
+      <Routes>
+        <Route path='/' element={<Loginn/>}/>
+        <Route path='/reg' element={<Registration/>}/>
+        <Route path='/Profile' element={<Profile/>}/>
+        <Route path='/chat' element={<Chat/>}/>
+      </Routes>
+    </Router>
     </ThemeProvider>
   );
 }
