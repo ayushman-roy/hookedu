@@ -7,25 +7,31 @@ export const verify_user = (req, res, next) => {
   // if accessToken present: verify by JWT
   // if accepted: allow access, pass decoded email as req.email
   // else: check next if statement
+  // accessToken_verified allows if-statement switch without overlaps
+  var accessToken_verified = false;
   if (accessToken) {
     jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
       if (err) return;
       req.email = decoded.email;
-      next();
+      accessToken_verified = true;
     });
+  }
+  if (accessToken_verified == true) {
+    next();
   }
   // if refreshToken present: verify by JWT
   // if accepted: create and send access token, accessToken acception
   // else: redirect to login page
-  if (refreshToken) {
+  else if (refreshToken) {
     jwt.verify(
       refreshToken,
       process.env.REFRESH_TOKEN_SECRET,
       (err, decoded) => {
-        if (err) return res.redirect(401, "/");
-        const user_email = decoded.email;
+        // HTTP status code: 401
+        if (err) return res.redirect("/");
+        const email = decoded.email;
         const user_access_token = jwt.sign(
-          { user_email },
+          { email },
           process.env.ACCESS_TOKEN_SECRET,
           {
             expiresIn: "1800s",
@@ -34,15 +40,16 @@ export const verify_user = (req, res, next) => {
         res.cookie("accessToken", user_access_token, {
           httpOnly: true,
           maxAge: 30 * 60 * 1000,
-          secure: true,
+          // secure: true
         });
-        req.email = user_email;
+        req.email = email;
         next();
       }
     );
   }
   // if no accessToken and refreshToken: redirect to login page
   else {
-    res.redirect(401, "/");
+    // HTTP status code: 401
+    return res.redirect("/");
   }
 };

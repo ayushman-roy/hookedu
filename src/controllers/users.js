@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 
 // pre_register form [register A]
 export const pre_register_get = async (req, res) => {
-  res.sendFile(
+  return res.sendFile(
     "/Users/ayushmanroy/hookedu/frontend-test/users/pre_register.html"
   );
 };
@@ -15,19 +15,23 @@ export const pre_register_get = async (req, res) => {
 export const pre_register_post = async (req, res) => {
   const { email, password } = req.body;
   // checks if user_university allowed
-  if (schoolCheck(email) == false)
-    return res
-      .json({ msg: "Invalid Email! Please Use Your University Email." })
-      .redirect(403, "back");
+  if (schoolCheck(email) == false) {
+    req.flash("message", "Invalid Email! Please Use Your University Email.");
+    // HTTP status code: 403
+    return res.redirect("back");
+  }
   // checks if user_email already in user_database
   const users = await User.findOne({ where: { email: email } });
   // if user_email already in user_database: reject request
-  if (users !== null)
-    return res.json({ msg: "You Have Registered Already!" }).redirect(400, "/");
+  if (users !== null) {
+    req.flash("message", "You Have Registered Already!");
+    // HTTP status code: 400
+    return res.redirect("/");
+  }
   // checks if user_email already in pre_user_database
   const pre_user = await Pre_User.findOne({ where: { email: email } });
   // generate user_otp; salt and hash user_password
-  const user_otp = getRandomInt(999999);
+  const user_otp = Math.floor(Math.random() * 999999);
   const salt = await bcrypt.genSalt();
   const hashPassword = await bcrypt.hash(password, salt);
   // if user_email PRESENT in pre_user_database: update pre_user
@@ -36,17 +40,17 @@ export const pre_register_post = async (req, res) => {
       pre_user.set({ password: hashPassword, otp: user_otp });
       await pre_user.save();
       // cookies for user_auth and auth_flow permissions
-      res
-        .cookie("email", email, { httpOnly: true, secure: true })
-        .cookie("password", hashPassword, { httpOnly: true, secure: true })
-        .cookie("otp", user_otp, { httpOnly: true, secure: true })
+      return res
+        .cookie("email", email, { httpOnly: true }) // secure: true
+        .cookie("password", hashPassword, { httpOnly: true }) // secure: true
+        .cookie("otp", user_otp, { httpOnly: true }) // secure: true
         .cookie("auth_otp", true, { httpOnly: true })
         .redirect("/hook/check");
     } catch (error) {
       console.log(error);
-      res
-        .json({ msg: "Something Went Wrong! Please Try Again!" })
-        .redirect(500, "back");
+      req.flash("message", "Something Went Wrong! Please Try Again!");
+      // HTTP status code: 500
+      return res.redirect("back");
     }
   }
   // if user_email NOT in pre_user_database: create pre_user
@@ -58,17 +62,17 @@ export const pre_register_post = async (req, res) => {
         otp: user_otp,
       });
       // cookies for user_auth and auth_flow permissions
-      res
-        .cookie("email", email, { httpOnly: true, secure: true })
-        .cookie("password", hashPassword, { httpOnly: true, secure: true })
-        .cookie("otp", user_otp, { httpOnly: true, secure: true })
+      return res
+        .cookie("email", email, { httpOnly: true }) // secure: true
+        .cookie("password", hashPassword, { httpOnly: true }) // secure: true
+        .cookie("otp", user_otp, { httpOnly: true }) // secure: true
         .cookie("auth_otp", true, { httpOnly: true })
         .redirect("/hook/check");
     } catch (error) {
       console.log(error);
-      res
-        .json({ msg: "Something Went Wrong! Please Try Again!" })
-        .redirect(500, "back");
+      req.flash("message", "Something Went Wrong! Please Try Again!");
+      // HTTP status code: 500
+      return res.redirect("back");
     }
   }
 };
@@ -76,39 +80,43 @@ export const pre_register_post = async (req, res) => {
 // verify_otp form [register B]
 export const verify_otp_get = async (req, res) => {
   // checks if register form A accepted
-  if (req.cookies.auth_otp == true) {
-    res.sendFile(
+  if (req.cookies.auth_otp == "true") {
+    return res.sendFile(
       "/Users/ayushmanroy/hookedu/frontend-test/users/verify_otp.html"
     );
   } else {
-    res.redirect(401, "/hook");
+    // HTTP status code: 401
+    return res.redirect("/hook");
   }
 };
 
 // authenticity verification
 export const verify_otp_post = async (req, res) => {
-  // gets user_email and otp cookies from client
+  // gets email and otp cookies from client
   const { email, otp } = req.cookies;
-  // sends otp to user_email
-  // TODO: send_OTP (user_email, otp)
-  const user_otp = req.body.otp;
+  // TODO: send_OTP (email, otp)
   // otp verification: if accepted: send auth_flow cookie
-  if (user_otp == otp) {
-    res.cookie("auth_data", true, { httpOnly: true }).redirect("/hook/data");
+  if (parseInt(req.body.otp) == otp) {
+    return res
+      .cookie("auth_data", true, { httpOnly: true })
+      .redirect("/hook/data");
   } else {
-    res.redirect(400, "back").json({ msg: "Invalid OTP!" });
+    req.flash("message", "Invalid OTP!");
+    // HTTP status code: 400
+    return res.redirect("back");
   }
 };
 
 // register form [register C]
 export const register_get = async (req, res) => {
   // checks if register form A and B accepted
-  if (req.cookies.auth_data == true) {
-    res.sendFile(
+  if (req.cookies.auth_data == "true") {
+    return res.sendFile(
       "/Users/ayushmanroy/hookedu/frontend-test/users/register.html"
     );
   } else {
-    res.redirect(401, "/hook/check");
+    // HTTP status code: 401
+    return res.redirect("/hook/check");
   }
 };
 
@@ -137,33 +145,36 @@ export const register_post = async (req, res) => {
       bio: bio,
       refresh_token: refreshToken,
     });
-    res
+    req.flash("message", "Registration Successful!");
+    // clear user_auth and auth_flow cookies
+    ["auth_otp", "auth_data", "email", "password", "otp"].forEach((cookie) => {
+      res.clearCookie(String(cookie));
+    });
+    return res
       .cookie("refreshToken", refreshToken, {
         httpOnly: true,
         maxAge: 15 * 24 * 60 * 60 * 1000,
-        secure: true,
+        // secure: true
       })
       .cookie("accessToken", accessToken, {
         httpOnly: true,
         maxAge: 30 * 60 * 1000,
-        secure: true,
+        // secure: true
       })
-      // clear auth_flow cookies
-      .clearCookie("auth_otp")
-      .clearCookie("auth_data")
-      .json({ msg: "Registration Successful!" })
       .redirect("/feed");
   } catch (error) {
     console.log(error);
-    res
-      .json({ msg: "Something Went Wrong! Please Try Again!" })
-      .redirect(500, "back");
+    req.flash("message", "Something Went Wrong! Please Try Again!");
+    // HTTP status code: 500
+    return res.redirect("back");
   }
 };
 
 // user_login form
 export const login_get = async (req, res) => {
-  res.sendFile("/Users/ayushmanroy/hookedu/frontend-test/users/login.html");
+  return res.sendFile(
+    "/Users/ayushmanroy/hookedu/frontend-test/users/login.html"
+  );
 };
 
 // user_login authentication
@@ -178,8 +189,11 @@ export const login_post = async (req, res) => {
     });
     // user_password authentication
     const match = await bcrypt.compare(password, user.password);
-    if (!match)
-      return res.json({ msg: "Wrong Password!" }).redirect(400, "back");
+    if (!match) {
+      req.flash("message", "Wrong Password!");
+      // HTTP status code: 400
+      return res.redirect("back");
+    }
     // if user_password accepted:
     // create and send access and refresh tokens: user_email encoded
     const accessToken = jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
@@ -191,21 +205,21 @@ export const login_post = async (req, res) => {
     // updates refresh_token in database
     user.set({ refresh_token: refreshToken });
     await user.save();
-    res
+    return res
       .cookie("refreshToken", refreshToken, {
         httpOnly: true,
         maxAge: 15 * 24 * 60 * 60 * 1000,
-        secure: true,
+        // secure: true
       })
       .cookie("accessToken", accessToken, {
         httpOnly: true,
         maxAge: 30 * 60 * 1000,
-        secure: true,
+        // secure: true
       })
       .redirect("/feed");
   } catch (error) {
-    res
-      .json({ msg: "Email Not Found! Please Register First!" })
-      .redirect(400, "/hook");
+    req.flash("message", "Email Not Found! Please Register First!");
+    // HTTP status code: 400
+    return res.redirect("/hook");
   }
 };

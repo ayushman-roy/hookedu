@@ -28,5 +28,5 @@ export const Pre_User = database.define(
 
 // syncs Pre_User model to pre-user database table
 (async () => {
-  await Pre_User.sync({ alter: true });
+  await Pre_User.sync();
 })();

@@ -1,0 +1,7 @@
+Dependencies: mysql (8.0.0+), nodejs (16.0.0+), npm(7.20.0+)
+
+Step 1: cd to src/ and npm install
+Step 2: go to src/config/database.js, replace root and abcd1234 with your mysql user and password 
+Step 3: go to mysql console and create a database named hookedu (CREATE DATABASE hookedu;)
+Step 4: cd to src/ and npm start 
+Step 5: go to localhost:3000/ and other paths as in src/routes

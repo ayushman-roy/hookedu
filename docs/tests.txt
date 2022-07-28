@@ -20,6 +20,6 @@ otp send_service
 TODO: USER_RE_AUTH:
 flow to /login and /register when user_session active
 
-INFO: COOKIE_COUNT:
-current: 7 [session: 5; persist: 2]
-max: 60
+INFO: HTTP_STATUS_CODE:
+HTTP_STATUS_CODE for res.redirect are commented out 
+blocks automatic redirects if HTTP_STATUS_CODE!=302
