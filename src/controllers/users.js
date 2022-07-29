@@ -16,17 +16,21 @@ export const pre_register_post = async (req, res) => {
   const { email, password } = req.body;
   // checks if user_university allowed
   if (schoolCheck(email) == false) {
-    req.flash("message", "Invalid Email! Please Use Your University Email.");
-    // HTTP status code: 403
-    return res.redirect("back");
+    return res.json({
+      msg: "Invalid Email! Please Use Your University Email.",
+      redirect: null,
+      reload: true,
+    });
   }
   // checks if user_email already in user_database
   const users = await User.findOne({ where: { email: email } });
   // if user_email already in user_database: reject request
   if (users !== null) {
-    req.flash("message", "You Have Registered Already!");
-    // HTTP status code: 400
-    return res.redirect("/");
+    return res.json({
+      msg: "You Have Registered Already!",
+      redirect: "/",
+      reload: false,
+    });
   }
   // checks if user_email already in pre_user_database
   const pre_user = await Pre_User.findOne({ where: { email: email } });
@@ -45,12 +49,18 @@ export const pre_register_post = async (req, res) => {
         .cookie("password", hashPassword, { httpOnly: true }) // secure: true
         .cookie("otp", user_otp, { httpOnly: true }) // secure: true
         .cookie("auth_otp", true, { httpOnly: true })
-        .redirect("/hook/check");
+        .json({
+          msg: null,
+          redirect: "/hook/check",
+          reload: false,
+        });
     } catch (error) {
       console.log(error);
-      req.flash("message", "Something Went Wrong! Please Try Again!");
-      // HTTP status code: 500
-      return res.redirect("back");
+      return res.json({
+        msg: "Something Went Wrong! Please Try Again!",
+        redirect: null,
+        reload: true,
+      });
     }
   }
   // if user_email NOT in pre_user_database: create pre_user
@@ -61,18 +71,25 @@ export const pre_register_post = async (req, res) => {
         password: hashPassword,
         otp: user_otp,
       });
+      // TODO: send_OTP (email, user_otp)
       // cookies for user_auth and auth_flow permissions
       return res
         .cookie("email", email, { httpOnly: true }) // secure: true
         .cookie("password", hashPassword, { httpOnly: true }) // secure: true
         .cookie("otp", user_otp, { httpOnly: true }) // secure: true
-        .cookie("auth_otp", true, { httpOnly: true })
-        .redirect("/hook/check");
+        .cookie("auth_otp", true)
+        .json({
+          msg: null,
+          redirect: "/hook/check",
+          reload: false,
+        });
     } catch (error) {
       console.log(error);
-      req.flash("message", "Something Went Wrong! Please Try Again!");
-      // HTTP status code: 500
-      return res.redirect("back");
+      return res.json({
+        msg: "Something Went Wrong! Please Try Again!",
+        redirect: null,
+        reload: true,
+      });
     }
   }
 };
@@ -94,12 +111,9 @@ export const verify_otp_get = async (req, res) => {
 export const verify_otp_post = async (req, res) => {
   // gets email and otp cookies from client
   const { email, otp } = req.cookies;
-  // TODO: send_OTP (email, otp)
   // otp verification: if accepted: send auth_flow cookie
   if (parseInt(req.body.otp) == otp) {
-    return res
-      .cookie("auth_data", true, { httpOnly: true })
-      .redirect("/hook/data");
+    return res.cookie("auth_data", true).redirect("/hook/data");
   } else {
     req.flash("message", "Invalid OTP!");
     // HTTP status code: 400
@@ -223,3 +237,5 @@ export const login_post = async (req, res) => {
     return res.redirect("/hook");
   }
 };
+
+// TODO: resend_otp controller: GET /resend_otp and uses sendOTP() function
