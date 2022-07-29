@@ -13,7 +13,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-const Loginn = () => {
+
+const Pre_register = () => {
     return (
         <div>
             <Container component="main" maxWidth="xs">
@@ -32,16 +33,16 @@ const Loginn = () => {
                             fontSize: '50px',
                             fontWeight: 500,
                             Color: 'primary',
-                            mb:3,
+                            mb: 3,
                         }}
                     >hookedu</Typography>
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign in
+                        Create New Account
                     </Typography>
-                    <Box component="form"  sx={{ mt: 1 }}>
+                    <Box component="form" sx={{ mt: 1 }}>
                         <TextField
                             variant='standard'
                             margin="normal"
@@ -52,6 +53,9 @@ const Loginn = () => {
                             name="email"
                             autoComplete="email"
                             autoFocus
+                            helperText="Hookedu Only accepts ashoka.edu.in email."
+                            placeholder='john@ashoka.edu.in'
+
                         />
 
                         <TextField
@@ -64,33 +68,26 @@ const Loginn = () => {
                             type="password"
                             id="password"
                             autoComplete="current-password"
+
+
                         />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
-                        />
+                          
+
+
+
+
                         <Button
                             type="submit"
                             method="get"
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2, borderRadius:'15px' }}
+                            sx={{ mt: 3, mb: 2, borderRadius: '15px' }}
+                            href="http://localhost:3000/hook/check"
                         >
-                            Sign In
+                            Verify Email
                         </Button>
 
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
-                            </Grid>
-                            <Grid item>
-                                <Link href="http://localhost:3000/hook" variant="body2">
-                                    {"Don't have an account? Sign Up"}
-                                </Link>
-                            </Grid>
-                        </Grid>
+
                     </Box>
                 </Box>
                 {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
@@ -99,4 +96,4 @@ const Loginn = () => {
     )
 }
 
-export default Loginn
+export default Pre_register

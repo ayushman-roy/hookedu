@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -15,7 +16,19 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Container from '@mui/material/Container';
+
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+
 export default function Registration() {
+//  Setting minimum and maximum age 
+    const min = 16;
+    const max = 90;
+
+    // For custom gender
+    const [checked, setChecked] = useState(false);
+
+    //  For Drop down input   
     const [batch, setbatch] = React.useState('');
     //  This is not an error , its appearing due to a default extension in vs code.
     const handleChange = (event: SelectChangeEvent) => {
@@ -43,7 +56,7 @@ export default function Registration() {
                             fontWeight: 500,
                             Color: 'primary',
                             mb: 3,
-                            fontFamily:'poppins',
+                            fontFamily: 'poppins',
                         }}
                     >hookedu</Typography>
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -60,19 +73,62 @@ export default function Registration() {
                             }}
                         ></TextField>
                         <TextField label="Age" type='number' variant="standard" required
+                        inputProps={{ min, max }}
+                        min="1" max='90'
                             fullWidth
+                            sx={{
+
+                                m: 1,
+
+                            }}
+                        ></TextField>
+
+                        <InputLabel required
                             sx={{
 
                                 m: 1
                             }}
-                        ></TextField>
-                        <TextField label="Gender" type='text' variant="standard" required
-                            fullWidth
+                        >Gender</InputLabel>
+                        <RadioGroup
+                            fullwidth
+                            row
+                            name="radio-buttons-group"
                             sx={{
 
                                 m: 1
                             }}
-                        ></TextField>
+                        >
+                            <FormControlLabel value="Female" control={<Radio />} label="Female" />
+                            <FormControlLabel value="Male" control={<Radio />} label="Male" />
+                            <FormControlLabel
+                                control={
+                                    <Radio
+                                        checked={checked}
+                                        onClick={() => setChecked(!checked)}
+                                        value="other"
+                                        label='other' />
+                                }
+                                label={
+                                    checked ?
+                                        <TextField
+                                        required
+                                        fullWidth
+                                            variant='standard' 
+                                            // disabled={!checked}
+                                            label="Custom"
+                                            // onKeyDown={(e) => setOtherInfo(e.target.value)}
+                                            sx={{
+
+                                                m: 1
+                                            }} 
+                                            />
+                                        : 'Custom'
+                                } />
+                        </RadioGroup>
+
+
+                        
+
 
                         <InputLabel required
                             sx={{
@@ -92,7 +148,7 @@ export default function Registration() {
                             <FormControlLabel value="Mens" control={<Radio />} label="Men" />
                             <FormControlLabel value="Everyone" control={<Radio />} label="Everyone" />
                         </RadioGroup>
-                        <TextField fullWidth label="School" defaultValue='Ashoka University' type='text' required variant="standard" helperText="Hookedu Is Exclusively Developed For Ashoka University Students Only"
+                        <TextField fullWidth label="School" defaultValue='Ashoka University' type='text' required variant="standard" helperText="Hookedu Is Exclusively Developed For Ashoka University  Only"
                             InputProps={{
                                 readOnly: true,
                             }}
@@ -121,7 +177,7 @@ export default function Registration() {
                                 m: 1
                             }}
                         >
-                            
+
                             <MenuItem value={1}><em>None</em></MenuItem>
                             <MenuItem value={'UG 2022'}>UG 2022</MenuItem>
                             <MenuItem value={20}>UG 2023</MenuItem>
@@ -146,12 +202,23 @@ export default function Registration() {
                                 m: 1
                             }}
                         ></TextField>
-                        <TextField required   type='file' variant="standard" fullWidth
+
+
+                        <InputLabel required
                             sx={{
 
                                 m: 1
                             }}
-                        ></TextField>
+                        >Profile Picture</InputLabel>
+                        <IconButton color="primary" aria-label="upload picture" size='large' component="label"
+                            sx={{
+
+                                m: 1
+                            }}
+                        >
+                            <input required hidden accept="image/*" type="file" />
+                            <PhotoCamera />
+                        </IconButton>
                         <Button
                             type="submit"
                             fullWidth

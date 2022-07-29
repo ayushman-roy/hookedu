@@ -1,7 +1,8 @@
 import Registration from "./Pages/Registration.jsx";
 import Loginn from "./Pages/Loginn";
-import Profile from "./Pages/Profile"
-import Chat from "./Pages/Chat"
+import Pre_register from "./Pages/Pre_register"
+import Verify from "./Pages/Verify_otp";
+
 
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 
@@ -26,9 +27,10 @@ function App() {
     <Router>
       <Routes>
         <Route path='/' element={<Loginn/>}/>
-        <Route path='/reg' element={<Registration/>}/>
-        <Route path='/Profile' element={<Profile/>}/>
-        <Route path='/chat' element={<Chat/>}/>
+        <Route path='/hook/data' element={<Registration/>}/>
+        <Route path='/hook' element={<Pre_register/>}/>
+        <Route path='/hook/check' element={<Verify/>}/>
+
       </Routes>
     </Router>
     </ThemeProvider>
