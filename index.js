@@ -4,8 +4,8 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import flash from "connect-flash";
 import session from "express-session";
-import database from "./config/database.js";
-import { root, register, feed } from "./routes/users.js";
+import database from "./src/config/database.js";
+import { root, register, feed } from "./src/routes/users.js";
 
 // loads environment variables
 dotenv.config();
@@ -29,7 +29,7 @@ try {
 // parsers: cookies, json, request_body
 app.use(cookieParser());
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended: false}));
 // allow CORS
 app.use(cors(corsOptions));
 // session management
@@ -42,4 +42,4 @@ app.use("/", root);
 app.use("/hook", register);
 app.use("/feed", feed);
 
-app.listen(5000, () => console.log("hookedu Running on Port 5000..."));
+app.listen(5001, () => console.log("hookedu Running on Port 5001..."));
