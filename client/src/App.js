@@ -1,4 +1,4 @@
-import Loginn from "./views/Loginn";
+import Login from "./components/Home";
 import Register from "./components/Register";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -20,7 +20,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
-          <Route path="/" element={<Loginn />} />
+          <Route path="/" element={<Login />} />
           <Route path="/hook" element={<Register />} />
         </Routes>
       </Router>
