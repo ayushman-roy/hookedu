@@ -1,11 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [stage, setStage] = useState("pre_reg");
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(null);
 
   const post_pre_reg_data = async (e) => {
     e.preventDefault();
@@ -23,6 +23,8 @@ export default function Register() {
     const { msg, success } = response;
     if (success) {
       setStage("verify_otp");
+      setMessage(null);
+      e.target.reset();
     } else {
       setMessage(msg);
     }
@@ -43,6 +45,8 @@ export default function Register() {
     const { msg, success } = response;
     if (success) {
       setStage("reg_data");
+      setMessage(null);
+      e.target.reset();
     } else {
       setMessage(msg);
     }
@@ -57,7 +61,7 @@ export default function Register() {
       gender: form.gender.value,
       interest: form.interest.value,
       school: form.school.value,
-      batch: form / batch.value,
+      batch: form.batch.value,
       bio: form.bio.value,
     };
     const res = await fetch("/hook/data", {
@@ -66,20 +70,25 @@ export default function Register() {
       body: JSON.stringify(user_data),
     });
     const response = await res.json();
-    const { msg, success } = response;
+    const { msg, success, otp_verify } = response;
     if (success) {
-      history.push("/feed");
+      navigate("/feed");
+    } else if (!otp_verify) {
+      e.target.reset();
+      setStage("verify_otp");
+      setMessage(msg);
     } else {
       setMessage(msg);
     }
   };
 
-  const resend_otp = async () => {
-    await fetch("/hook/resend_otp", { method: "GET" });
-    console.log("OTP Sent");
-  };
+  async function resend_otp_button() {
+    const res = await fetch("/hook/resend_otp", { method: "GET" });
+    const { msg } = await res.json();
+    setMessage(msg);
+  }
 
-  // TODO: if (message) => render message as alert [for every case]
+  // TODO: if (message) => render message as flash alert [for every case]
   // messages_type: "You Have Registered Already!"...
 
   if (stage == "reg_data") {
@@ -96,6 +105,7 @@ export default function Register() {
           School: <input type="text" name="school" id="" />
           Batch: <input type="text" name="batch" id="" />
           Bio: <input type="text" name="bio" id="" />
+          <input type="submit" name="" id="" />
         </form>
       </>
     );
@@ -107,13 +117,13 @@ export default function Register() {
         <form onSubmit={(e) => post_verify_otp_data(e)}>
           OTP: <input type="number" name="otp" id="" />
           <input type="submit" name="" id="" />
-          <input
+          <button
             type="button"
             name="resend_otp"
-            value="Resend OTP"
-            id=""
-            onClick={resend_otp()}
-          />
+            onClick={(e) => resend_otp_button()}
+          >
+            Resend OTP
+          </button>
         </form>
       </>
     );

@@ -84,7 +84,9 @@ export const verify_otp_post = async (req, res) => {
   const { email, otp } = req.cookies;
   // otp verification: if accepted: JSON.success
   if (parseInt(req.body.otp) == otp) {
-    return res.json({ msg: null, success: true });
+    return res
+      .cookie("otp_verified", true, { httpOnly: true })
+      .json({ msg: null, success: true });
   } else {
     return res.json({ msg: "Invalid OTP!", success: false });
   }
@@ -95,55 +97,64 @@ export const verify_otp_post = async (req, res) => {
 export const resend_otp = async (req, res) => {
   const { email, otp } = req.cookies;
   // if (email && otp) => await send_OTP (email, user_otp)
-  return;
+  return res.json({ msg: "Check Your Inbox for OTP!" });
 };
 
 // create end_user
 export const register_post = async (req, res) => {
   const { name, age, gender, interest, school, batch, bio } = req.body;
-  const { email, password } = req.cookies;
-  try {
-    // create authentication tokens: user_email encoded
-    const accessToken = jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: "1800s",
-    });
-    const refreshToken = jwt.sign({ email }, process.env.REFRESH_TOKEN_SECRET, {
-      expiresIn: "15d",
-    });
-    await User.create({
-      name: name,
-      email: email,
-      password: password,
-      age: age,
-      gender: gender,
-      interest: interest,
-      school: school,
-      batch: batch,
-      bio: bio,
-      refresh_token: refreshToken,
-    });
-    // clear user_auth and auth_flow cookies
-    ["email", "password", "otp"].forEach((cookie) => {
-      res.clearCookie(String(cookie));
-    });
-    return res
-      .cookie("refreshToken", refreshToken, {
-        httpOnly: true,
-        maxAge: 15 * 24 * 60 * 60 * 1000,
-        // secure: true
-      })
-      .cookie("accessToken", accessToken, {
-        httpOnly: true,
-        maxAge: 30 * 60 * 1000,
-        // secure: true
-      })
-      .json({ msg: null, success: true });
-  } catch (error) {
-    console.log(error);
-    return res.json({
-      msg: "Something Went Wrong! Please Try Again!",
-      success: false,
-    });
+  const { email, password, otp_verified } = req.cookies;
+  if (otp_verified) {
+    try {
+      // create authentication tokens: user_email encoded
+      const accessToken = jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
+        expiresIn: "1800s",
+      });
+      const refreshToken = jwt.sign(
+        { email },
+        process.env.REFRESH_TOKEN_SECRET,
+        {
+          expiresIn: "15d",
+        }
+      );
+      await User.create({
+        name: name,
+        email: email,
+        password: password,
+        age: age,
+        gender: gender,
+        interest: interest,
+        school: school,
+        batch: batch,
+        bio: bio,
+        refresh_token: refreshToken,
+      });
+      // clear user_auth and auth_flow cookies
+      ["email", "password", "otp", "otp_verified"].forEach((cookie) => {
+        res.clearCookie(String(cookie));
+      });
+      return res
+        .cookie("refreshToken", refreshToken, {
+          httpOnly: true,
+          maxAge: 15 * 24 * 60 * 60 * 1000,
+          // secure: true
+        })
+        .cookie("accessToken", accessToken, {
+          httpOnly: true,
+          maxAge: 30 * 60 * 1000,
+          // secure: true
+        })
+        .json({ msg: null, success: true, otp_verify: true });
+    } catch (error) {
+      console.log(error);
+      return res.json({
+        msg: "Something Went Wrong! Please Try Again!",
+        success: false,
+        otp_verify: true,
+      });
+    }
+  } else {
+    res.json({ msg: "Please Verify OTP!", success: false, otp_verify: false });
   }
 };
 

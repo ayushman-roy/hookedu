@@ -1,10 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const history = useHistory();
-  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+  const [message, setMessage] = useState(null);
 
   const post_login_data = async (e) => {
     e.preventDefault();
@@ -21,13 +21,13 @@ export default function Login() {
     const response = await res.json();
     const { msg, success } = response;
     if (success) {
-      history.push("/feed");
+      navigate("/feed");
     } else {
       setMessage(msg);
     }
   };
 
-  // TODO: if (message) => render message as alert
+  // TODO: if (message) => render message as flash alert
   // message_type: "Email Not Found! Please Register First!"...
 
   return (
