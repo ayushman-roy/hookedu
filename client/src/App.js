@@ -1,5 +1,6 @@
 import Login from "./components/Home";
 import Register from "./components/Register";
+import Feed from "./components/Feed";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -22,6 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/hook" element={<Register />} />
+          <Route path="/feed" element={<Feed />} />
         </Routes>
       </Router>
     </ThemeProvider>

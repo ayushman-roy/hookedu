@@ -1,7 +1,9 @@
 import React from "react";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 export default function Register() {
+  const history = useHistory();
   const [stage, setStage] = useState("pre_reg");
   const [message, setMessage] = useState("");
 
@@ -66,6 +68,7 @@ export default function Register() {
     const response = await res.json();
     const { msg, success } = response;
     if (success) {
+      history.push("/feed");
     } else {
       setMessage(msg);
     }

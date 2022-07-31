@@ -18,6 +18,7 @@ register.post("/data", users.register_post);
 register.get("/resend_otp", users.resend_otp);
 
 // console request_handlers
-feed.get("/", access_control.verify_user, console.feed_get);
+feed.use(access_control.verify_user);
+feed.get("/", console.feed_get);
 
 export { root, register, feed };

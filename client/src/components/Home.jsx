@@ -1,7 +1,9 @@
 import React from "react";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 export default function Login() {
+  const history = useHistory();
   const [message, setMessage] = useState("");
 
   const post_login_data = async (e) => {
@@ -19,6 +21,7 @@ export default function Login() {
     const response = await res.json();
     const { msg, success } = response;
     if (success) {
+      history.push("/feed");
     } else {
       setMessage(msg);
     }

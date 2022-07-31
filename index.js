@@ -29,6 +29,6 @@ app.use(cors(corsOptions));
 // route_handlers
 app.use("/", root);
 app.use("/hook", register);
-app.use("/feed", feed);
+app.use("/api/feed", feed);
 
 app.listen(5001, () => console.log("hookedu: Server Running on Port 5001..."));

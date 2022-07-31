@@ -28,7 +28,7 @@ export const verify_user = (req, res, next) => {
       process.env.REFRESH_TOKEN_SECRET,
       (err, decoded) => {
         // HTTP status code: 401
-        if (err) return res.redirect("/");
+        if (err) return res.json({ msg: null, success: false });
         const email = decoded.email;
         const user_access_token = jwt.sign(
           { email },
@@ -50,6 +50,6 @@ export const verify_user = (req, res, next) => {
   // if no accessToken and refreshToken: redirect to login page
   else {
     // HTTP status code: 401
-    return res.redirect("/");
+    return res.json({ msg: null, success: false });
   }
 };
