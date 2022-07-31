@@ -9,16 +9,13 @@ const register = express.Router();
 const feed = express.Router();
 
 // login request_handlers
-root.get("/", users.login_get);
 root.post("/", users.login_post);
 
 // register request_handlers
-register.get("/", users.pre_register_get);
 register.post("/", users.pre_register_post);
-register.get("/check", users.verify_otp_get);
 register.post("/check", users.verify_otp_post);
-register.get("/data", users.register_get);
 register.post("/data", users.register_post);
+register.get("/resend_otp", users.resend_otp);
 
 // console request_handlers
 feed.get("/", access_control.verify_user, console.feed_get);

@@ -1,13 +1,9 @@
-import Registration from "./views/Registration.jsx";
 import Loginn from "./views/Loginn";
-import Pre_Register from "./components/Pre_Register";
-import Verify from "./views/Verify_otp";
-
+import Register from "./components/Register";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
-//  Defining my custom theme i.e color
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { LoginOutlined } from "@mui/icons-material";
+
+// custom theme and color
 const theme = createTheme({
   palette: {
     primary: {
@@ -18,7 +14,6 @@ const theme = createTheme({
     },
   },
 });
-// ****************************
 
 function App() {
   return (
@@ -26,9 +21,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Loginn />} />
-          <Route path="/hook" element={<Pre_Register />} />
-          <Route path="/hook/check" element={<Verify />} />
-          <Route path="/hook/data" element={<Registration />} />
+          <Route path="/hook" element={<Register />} />
         </Routes>
       </Router>
     </ThemeProvider>
