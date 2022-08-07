@@ -18,7 +18,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Container from "@mui/material/Container";
-import Alert from "@mui/material/Alert";
 // import IconButton from '@mui/material/IconButton';
 // import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
@@ -48,9 +47,7 @@ export default function Register() {
       setStage("verify_otp");
       e.target.reset();
     } else {
-      <Alert clsa severity="error">
-        {msg}
-      </Alert>;
+      console.log(msg);
     }
   };
 
@@ -71,9 +68,7 @@ export default function Register() {
       setStage("reg_data");
       e.target.reset();
     } else {
-      <Alert clsa severity="error">
-        {msg}
-      </Alert>;
+      console.log(msg);
     }
   };
 
@@ -101,25 +96,19 @@ export default function Register() {
     } else if (!otp_verify) {
       e.target.reset();
       setStage("verify_otp");
-      <Alert clsa severity="error">
-        {msg}
-      </Alert>;
+      console.log(msg);
     } else {
-      <Alert clsa severity="error">
-        {msg}
-      </Alert>;
+      console.log(msg);
     }
   };
 
   async function resend_otp_button() {
     const res = await fetch("/hook/resend_otp", { method: "GET" });
     const { msg } = await res.json();
-    <Alert clsa severity="success">
-      {msg}
-    </Alert>;
+    console.log(msg);
   }
 
-  if (stage == "reg_data") {
+  if (stage === "reg_data") {
     return (
       <>
         <Container component="main" maxWidth="xs">
@@ -168,7 +157,7 @@ export default function Register() {
                 type="number"
                 variant="standard"
                 required
-                inputProps={{ 16: 80 }}
+                inputProps={{ min: 16, max: 30 }}
                 min="1"
                 max="90"
                 fullWidth
@@ -257,7 +246,7 @@ export default function Register() {
                   name="interest"
                 />
                 <FormControlLabel
-                  value="Mens"
+                  value="Men"
                   name="interest"
                   control={<Radio />}
                   label="Men"
@@ -355,7 +344,7 @@ export default function Register() {
               </IconButton> */}
 
               <Button
-                onClick={(e) => post_reg_data(e)}
+                onSubmit={(e) => post_reg_data(e)}
                 type="submit"
                 fullWidth
                 variant="contained"
@@ -378,7 +367,7 @@ export default function Register() {
     );
   }
   // TODO: resend_otp() => afterClick => disable button for 60s
-  else if (stage == "verify_otp") {
+  else if (stage === "verify_otp") {
     return (
       <>
         <Container component="main" maxWidth="xs">
@@ -407,7 +396,7 @@ export default function Register() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              OPT Veryfication
+              OTP Verification
             </Typography>
             <form onSubmit={(e) => post_verify_otp_data(e)} sx={{ mt: 1 }}>
               <TextField

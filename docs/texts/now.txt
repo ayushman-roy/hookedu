@@ -1,11 +1,11 @@
 TODOs: 
 
 for Shubham:
-complete todos assigned in client/src/components
-cosmetic changes for client/src/components
-[DO: keep onSubmit and other events unchanged]
-[DO NOT: change the form structures] 
+if console.log(msg): error_message render as alert [Loader, Home, Register]
+check spell_errors
+Register: complete line 369 task
+keep improving user_auth UI
+fix communicated bug
 
 for Ayushman:
 documentation 
-user_auth flowchart

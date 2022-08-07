@@ -14,18 +14,15 @@ export default function Loader() {
       if (!success) {
         navigate("/");
       } else {
-        <Alert clsa severity="error">
-          {msg}
-        </Alert>;
+        console.log(msg);
       }
     }
     get_data();
-  }, []);
+  }, [navigate]);
 
   return (
     <div>
       <Box sx={{ width: "100%" }} bgcolor="pink" p={2}>
-        {" "}
         Loader
       </Box>
     </div>

@@ -32,9 +32,7 @@ export default function Login() {
     if (success) {
       navigate("/feed");
     } else {
-      <Alert clsa severity="error">
-        {msg}
-      </Alert>;
+      console.log(msg);
     }
   };
 
