@@ -4,5 +4,4 @@ set critical cookies to SIGNED and ENCRYPTED.
 
 TODO: USER_AUTH_LEFTOVERS:
 forgot password & image upload flow;
-otp send_service;
 flow to /login and /register when user_session active.

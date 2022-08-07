@@ -1,6 +1,7 @@
 import { Pre_User } from "../models/users/pre_user.js";
 import { User } from "../models/users/user.js";
 import { schoolCheck } from "../checks/user_auth.js";
+import { send_otp } from "../checks/send_otp.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -34,6 +35,7 @@ export const pre_register_post = async (req, res) => {
     try {
       pre_user.set({ password: hashPassword, otp: user_otp });
       await pre_user.save();
+      await send_otp(email, user_otp);
       // cookies for user_auth data
       return res
         .cookie("email", email, { httpOnly: true }) // secure: true
@@ -59,7 +61,7 @@ export const pre_register_post = async (req, res) => {
         password: hashPassword,
         otp: user_otp,
       });
-      // send_OTP (email, user_otp)
+      await send_otp(email, user_otp);
       // cookies for user_auth data
       return res
         .cookie("email", email, { httpOnly: true }) // secure: true
@@ -92,12 +94,21 @@ export const verify_otp_post = async (req, res) => {
   }
 };
 
-// TODO: async send_OTP (email, user_otp)
-
 export const resend_otp = async (req, res) => {
-  const { email, otp } = req.cookies;
-  // if (email && otp) => await send_OTP (email, user_otp)
-  return res.json({ msg: "Check Your Inbox for OTP!" });
+  try {
+    const { email, otp } = req.cookies;
+    if (!Boolean(email && otp)) {
+      throw error;
+    }
+    let otp_success = await send_otp(email, otp);
+    if (otp_success) {
+      return res.json({ msg: "Check Your Inbox for OTP!" });
+    } else {
+      throw error;
+    }
+  } catch (error) {
+    return res.json({ msg: "Cannot Send OTP!" });
+  }
 };
 
 // create end_user
