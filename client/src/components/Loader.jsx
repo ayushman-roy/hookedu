@@ -1,9 +1,9 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Box } from "@mui/system";
 
-export default function Feed() {
-  const [message, setMessage] = useState(null);
+export default function Loader() {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,15 +14,20 @@ export default function Feed() {
       if (!success) {
         navigate("/");
       } else {
-        setMessage(msg);
+        <Alert clsa severity="error">
+          {msg}
+        </Alert>;
       }
     }
     get_data();
   }, []);
 
   return (
-    <>
-      <div>{message}</div>
-    </>
+    <div>
+      <Box sx={{ width: "100%" }} bgcolor="pink" p={2}>
+        {" "}
+        Loader
+      </Box>
+    </div>
   );
 }

@@ -1,15 +1,11 @@
-// Basic structure imports by roy
-// import Login from "./components/Home";
-import Register from "./components/Register";
-// import Feed from "./components/Feed";
+import Login from "./views/Home";
+import Register from "./views/Register";
+import Feed from "./views/Feed";
 
-// Designed pages following the structure provided 
-// import Regdata from "./Views/Regdata";
-import MainFeed from "./Views/MainFeed";
-import Login from "./Views/Login";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-// custom theme and color
+
+// Custom Theme & Color
 const theme = createTheme({
   palette: {
     primary: {
@@ -26,12 +22,9 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
-          {/* <Route path="/" element={<Login />} /> */}
-          <Route path="/hook" element={<Register />} />
-          {/* <Route path="/feed" element={<Feed />} /> */}
           <Route path="/" element={<Login />} />
-          {/* <Route path="/hook" element={<Regdata />} /> */}
-          <Route path="/feed" element={<MainFeed />} />
+          <Route path="/hook" element={<Register />} />
+          <Route path="/feed" element={<Feed />} />
         </Routes>
       </Router>
     </ThemeProvider>
