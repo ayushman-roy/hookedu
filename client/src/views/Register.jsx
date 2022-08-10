@@ -299,14 +299,14 @@ export default function Register() {
                   <em>None</em>
                 </MenuItem>
                 <MenuItem value={"UG 2022"}>UG 2022</MenuItem>
-                <MenuItem value={20}>UG 2023</MenuItem>
-                <MenuItem value={30}>UG 2024</MenuItem>
-                <MenuItem value={40}>UG 2025</MenuItem>
-                <MenuItem value={50}>ASP</MenuItem>
-                <MenuItem value={60}>MA</MenuItem>
-                <MenuItem value={70}>MLS</MenuItem>
-                <MenuItem value={80}>PHD</MenuItem>
-                <MenuItem value={90}>Faculty</MenuItem>
+                <MenuItem value={'UG 2023'}>UG 2023</MenuItem>
+                <MenuItem value={"UG 2024"}>UG 2024</MenuItem>
+                <MenuItem value={"UG 2025"}>UG 2025</MenuItem>
+                <MenuItem value={"ASP"}>ASP</MenuItem>
+                <MenuItem value={"MA"}>MA</MenuItem>
+                <MenuItem value={"MLS"}>MLS</MenuItem>
+                <MenuItem value={"PHD"}>PHD</MenuItem>
+                <MenuItem value={"Faculty"}>Faculty</MenuItem>
               </Select>
 
               <TextField
