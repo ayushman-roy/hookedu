@@ -106,6 +106,9 @@ export default function Register() {
     const res = await fetch("/hook/resend_otp", { method: "GET" });
     const { msg } = await res.json();
     console.log(msg);
+    console.log('function');
+    document.getElementById("btn-disable").disabled = true;
+    setTimeout(function(){document.getElementById("btn-disable").disabled = false;},30000);
   }
 
   if (stage === "reg_data") {
@@ -423,6 +426,7 @@ export default function Register() {
                 type="button"
                 fullWidth
                 variant="contained"
+                id="btn-disable"
                 sx={{ mt: 3, mb: 2, borderRadius: "15px" }}
               >
                 Resend OTP
