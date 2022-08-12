@@ -106,9 +106,10 @@ export default function Register() {
     const res = await fetch("/hook/resend_otp", { method: "GET" });
     const { msg } = await res.json();
     console.log(msg);
-    console.log('function');
     document.getElementById("btn-disable").disabled = true;
-    setTimeout(function(){document.getElementById("btn-disable").disabled = false;},30000);
+    setTimeout(function () {
+      document.getElementById("btn-disable").disabled = false;
+    }, 30000);
   }
 
   if (stage === "reg_data") {
@@ -302,7 +303,7 @@ export default function Register() {
                   <em>None</em>
                 </MenuItem>
                 <MenuItem value={"UG 2022"}>UG 2022</MenuItem>
-                <MenuItem value={'UG 2023'}>UG 2023</MenuItem>
+                <MenuItem value={"UG 2023"}>UG 2023</MenuItem>
                 <MenuItem value={"UG 2024"}>UG 2024</MenuItem>
                 <MenuItem value={"UG 2025"}>UG 2025</MenuItem>
                 <MenuItem value={"ASP"}>ASP</MenuItem>
