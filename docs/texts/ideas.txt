@@ -1,0 +1,7 @@
+/feed main like COC global, thus one controller would be cool for all and no recommendation systems [GOOD]
+
+what if we don't implement photos of people? like you are forbidden from sending your photos on global chat and u don't have dps [BAD]
+
+user matching algo: using bio similarity index: we make a frequency table of different words in bio and compare non trivial words and based on that we match them; or we gather interests and match them on that, same philosophy but easier approach but can be too simplistic [MAYBE LATER]
+
+likes on global feed? [MAYBE]
