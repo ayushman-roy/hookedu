@@ -103,13 +103,13 @@ export default function Register() {
   };
 
   async function resend_otp_button() {
+    document.getElementById("btn-disable").disabled = true;
     const res = await fetch("/hook/resend_otp", { method: "GET" });
     const { msg } = await res.json();
     console.log(msg);
-    document.getElementById("btn-disable").disabled = true;
-    setTimeout(function () {
+    setTimeout(() => {
       document.getElementById("btn-disable").disabled = false;
-    }, 30000);
+    }, 20000);
   }
 
   if (stage === "reg_data") {
@@ -302,10 +302,10 @@ export default function Register() {
                 <MenuItem value={1}>
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value={"UG 2022"}>UG 2022</MenuItem>
-                <MenuItem value={"UG 2023"}>UG 2023</MenuItem>
-                <MenuItem value={"UG 2024"}>UG 2024</MenuItem>
-                <MenuItem value={"UG 2025"}>UG 2025</MenuItem>
+                <MenuItem value={"UG22"}>UG 2022</MenuItem>
+                <MenuItem value={"UG23"}>UG 2023</MenuItem>
+                <MenuItem value={"UG24"}>UG 2024</MenuItem>
+                <MenuItem value={"UG25"}>UG 2025</MenuItem>
                 <MenuItem value={"ASP"}>ASP</MenuItem>
                 <MenuItem value={"MA"}>MA</MenuItem>
                 <MenuItem value={"MLS"}>MLS</MenuItem>
