@@ -1,0 +1,13 @@
+for Shubham:
+if console.log(msg): error_message render as alert [Loader, Home, Register]
+blur resend_otp button after disable
+cosmetic improvements
+fix bugs: 
+    - recieved true for non-boolean attribute [email; Register.jsx]
+    - able to select male/female when custom gender selected [whatsapp; Register.jsx]
+
+for Ayushman:
+code documentation 
+set cookie_settings: PATH, SIGNED and ENCRYPTED
+make forgot_password & image_upload flow
+flow to root and /hook when user_session active

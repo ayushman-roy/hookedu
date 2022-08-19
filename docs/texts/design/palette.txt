@@ -1,0 +1,22 @@
+/* Coolors Exported Palette - https://coolors.co/f8f6f2-bd0f15 */
+
+/* CSV */
+f8f6f2,bd0f15
+
+/* With # */
+#f8f6f2, #bd0f15
+
+/* Array */
+["f8f6f2","bd0f15"]
+
+/* Object */
+{"Isabelline":"f8f6f2","Carnelian":"bd0f15"}
+
+/* Extended Array */
+[{"name":"Isabelline","hex":"f8f6f2","rgb":[248,246,242],"cmyk":[0,1,2,3],"hsb":[40,2,97],"hsl":[40,30,96],"lab":[97,0,2]},{"name":"Carnelian","hex":"bd0f15","rgb":[189,15,21],"cmyk":[0,92,89,26],"hsb":[358,92,74],"hsl":[358,85,40],"lab":[40,63,46]}]
+
+/* XML */
+<palette>
+  <color name="Isabelline" hex="f8f6f2" r="248" g="246" b="242" />
+  <color name="Carnelian" hex="bd0f15" r="189" g="15" b="21" />
+</palette>

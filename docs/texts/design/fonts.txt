@@ -1,0 +1,21 @@
+selected –
+logo: 
+    covered by your grace
+support: 
+    amiko
+
+contenders –
+logo:
+    sacramento
+    allura
+    covered by your grace
+    didot
+    comforta
+support:
+    khula
+    droid serif
+    amiko
+    poppins
+apple:
+    bakersville
+    mullish
