@@ -180,7 +180,7 @@ export default function Register() {
               </InputLabel>
               <RadioGroup
                 name="gender"
-                fullwidth
+                // fullwidth
                 row
                 sx={{
                   m: 1,
@@ -211,7 +211,6 @@ export default function Register() {
                     checked ? (
                       <TextField
                         required
-                        fullWidth
                         variant="standard"
                         name="gender"
                         // disabled={!checked}
@@ -219,6 +218,7 @@ export default function Register() {
                         // onKeyDown={(e) => setOtherInfo(e.target.value)}
                         sx={{
                           m: 1,
+                          width:'100%'
                         }}
                       />
                     ) : (
@@ -290,13 +290,13 @@ export default function Register() {
               <Select
                 name="batch"
                 required
-                fullWidth
                 variant="standard"
                 label="Batch"
                 value={batch}
                 onChange={(e) => setbatch(e.target.value)}
                 sx={{
                   m: 1,
+                  width:'100%'
                 }}
               >
                 <MenuItem value={1}>
