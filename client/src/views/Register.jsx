@@ -180,7 +180,6 @@ export default function Register() {
               </InputLabel>
               <RadioGroup
                 name="gender"
-                // fullwidth
                 row
                 sx={{
                   m: 1,
