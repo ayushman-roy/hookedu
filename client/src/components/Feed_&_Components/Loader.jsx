@@ -2,7 +2,6 @@ import React from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
-
 export default function Loader() {
   const navigate = useNavigate();
 
@@ -22,8 +21,12 @@ export default function Loader() {
 
   return (
     <div>
-      <Box sx={{ width: "100%" }} bgcolor="pink" p={2}>
-        Loader
+      <Box
+        sx={{ display: "flex",}}
+        bgcolor="Red"
+        p={2}
+      >
+        Main Feed
       </Box>
     </div>
   );
