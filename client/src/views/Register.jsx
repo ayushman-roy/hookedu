@@ -130,10 +130,11 @@ export default function Register() {
               color="primary"
               sx={{
                 fontSize: "50px",
-                fontWeight: 500,
+                fontWeight: "bold",
                 Color: "primary",
                 mb: 3,
-                fontFamily: "poppins",
+                letterSpacing: "7px",
+                fontFamily: "Covered By Your Grace",
               }}
             >
               hookedu
@@ -217,7 +218,7 @@ export default function Register() {
                         // onKeyDown={(e) => setOtherInfo(e.target.value)}
                         sx={{
                           m: 1,
-                          width:'100%'
+                          width: "100%",
                         }}
                       />
                     ) : (
@@ -275,7 +276,7 @@ export default function Register() {
                 }}
                 sx={{
                   m: 1,
-                  fontWeight: 500,
+                  fontWeight: 501,
                 }}
               ></TextField>
               <InputLabel
@@ -295,7 +296,7 @@ export default function Register() {
                 onChange={(e) => setbatch(e.target.value)}
                 sx={{
                   m: 1,
-                  width:'100%'
+                  width: "100%",
                 }}
               >
                 <MenuItem value={1}>
@@ -388,9 +389,11 @@ export default function Register() {
               color="primary"
               sx={{
                 fontSize: "50px",
-                fontWeight: 500,
+                fontWeight: "bold",
                 Color: "primary",
                 mb: 3,
+                letterSpacing: "7px",
+                fontFamily: "Covered By Your Grace",
               }}
             >
               hookedu
@@ -455,9 +458,11 @@ export default function Register() {
               color="primary"
               sx={{
                 fontSize: "50px",
-                fontWeight: 500,
+                fontWeight: "bold",
                 Color: "primary",
                 mb: 3,
+                letterSpacing: "7px",
+                fontFamily: "Covered By Your Grace",
               }}
             >
               hookedu

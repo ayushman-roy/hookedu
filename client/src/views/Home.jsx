@@ -53,9 +53,11 @@ export default function Login() {
             color="primary"
             sx={{
               fontSize: "50px",
-              fontWeight: 500,
-              Color: "primary",
+              fontWeight: 'bold',
+              letterSpacing: '7px',
+              Color: "secondary",
               mb: 3,
+              fontFamily: "Covered By Your Grace",
             }}
           >
             hookedu

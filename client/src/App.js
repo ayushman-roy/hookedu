@@ -12,9 +12,20 @@ const theme = createTheme({
       main: "#a70e13",
     },
     secondary: {
-      main: "#a70e13",
+      main: "#bd0f15",
     },
   },
+  
+
+  typography: {
+    fontFamily: [
+      'Amiko',
+      'Covered By Your Grace',
+      'BlinkMacSystemFont',
+      'sans-serif',
+    ].join(','),
+  },
+
 });
 
 function App() {
