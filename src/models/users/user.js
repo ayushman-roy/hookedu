@@ -30,13 +30,6 @@ export const User = database.define("user", {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  interest: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      isIn: [["Men", "Women", "Everyone"]],
-    },
-  },
   school: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -52,9 +45,27 @@ export const User = database.define("user", {
   refresh_token: {
     type: Sequelize.TEXT,
   },
+  search_type: {
+    type: Sequelize.STRING,
+  },
+  last_search: {
+    type: Sequelize.DATE,
+  },
+  matches: {
+    type: Sequelize.JSON,
+  },
+  recent_matches: {
+    type: Sequelize.INTEGER,
+  },
 });
 
 // syncs User model to users database table
 (async () => {
   await User.sync();
 })();
+
+/*
+(async () => {
+  await User.sync({ alter: true });
+})();
+*/
