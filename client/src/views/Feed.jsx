@@ -1,9 +1,10 @@
 import React from "react";
-import Loader from "../components/Feed_&_Components/Loader";
-import RightBar from "../components/Feed_&_Components/RightBar";
-import LeftBar from "../components/Feed_&_Components/LeftBar";
+import Loader from "../components/feed/Loader";
+import RightBar from "../components/feed/RightBar";
+import LeftBar from "../components/feed/LeftBar";
+import  "../components/feed/Feed.css";
 import { Box } from "@mui/material";
-import  "../components/Feed_&_Components/Feed.css";
+
 const Feed = () => {
   return (
     <Box
