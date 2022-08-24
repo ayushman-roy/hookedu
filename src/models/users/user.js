@@ -45,7 +45,7 @@ export const User = database.define("user", {
   refresh_token: {
     type: Sequelize.TEXT,
   },
-  search_type: {
+  type: {
     type: Sequelize.STRING,
   },
   last_search: {
