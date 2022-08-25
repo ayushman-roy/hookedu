@@ -49,13 +49,16 @@ export const User = database.define("user", {
     type: Sequelize.STRING,
   },
   last_search: {
-    type: Sequelize.DATE,
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
   },
   matches: {
     type: Sequelize.JSON,
+    defaultValue: [],
   },
-  recent_matches: {
+  last_match: {
     type: Sequelize.INTEGER,
+    defaultValue: 0,
   },
 });
 

@@ -35,7 +35,7 @@ export const pre_register_post = async (req, res) => {
     try {
       pre_user.set({ password: hashPassword, otp: user_otp });
       await pre_user.save();
-      await send_otp(email, user_otp);
+      send_otp(email, user_otp);
       // cookies for user_auth data
       return res
         .cookie("email", email, { httpOnly: true }) // secure: true
@@ -61,7 +61,7 @@ export const pre_register_post = async (req, res) => {
         password: hashPassword,
         otp: user_otp,
       });
-      await send_otp(email, user_otp);
+      send_otp(email, user_otp);
       // cookies for user_auth data
       return res
         .cookie("email", email, { httpOnly: true }) // secure: true

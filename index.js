@@ -3,7 +3,8 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import database from "./src/config/database.js";
-import { root, register, feed } from "./src/routes/users.js";
+import { root, register } from "./src/routes/users.js";
+import { feed } from "./src/routes/feed.js";
 
 // loads environment variables
 dotenv.config();
