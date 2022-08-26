@@ -87,9 +87,6 @@ export default function Register() {
     setMessage(msg);
   }
 
-  // TODO: if (message) => render message as flash alert [for every case]
-  // messages_type: "You Have Registered Already!"...
-
   if (stage == "reg_data") {
     return (
       <>
@@ -104,9 +101,7 @@ export default function Register() {
         </form>
       </>
     );
-  }
-  // TODO: resend_otp() => afterClick => disable button for 60s
-  else if (stage == "verify_otp") {
+  } else if (stage == "verify_otp") {
     return (
       <>
         <form onSubmit={(e) => post_verify_otp_data(e)}>

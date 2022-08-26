@@ -60,6 +60,9 @@ export const User = database.define("user", {
     type: Sequelize.INTEGER,
     defaultValue: 0,
   },
+  image_url: {
+    type: Sequelize.TEXT,
+  },
 });
 
 // syncs User model to users database table

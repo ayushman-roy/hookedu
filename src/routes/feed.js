@@ -9,6 +9,6 @@ const feed = express.Router();
 // console request_handlers
 feed.use(access_control.verify_user);
 feed.get("/", console.feed_get);
-feed.get("/user_match", match.user_match);
+feed.post("/user_match", match.user_match);
 
 export { feed };

@@ -111,6 +111,9 @@ export default function Register() {
     }, 20000);
   }
 
+  // TODO: if (message) => render message as flash alert [for every case]
+  // messages_type: "You Have Registered Already!"...
+
   if (stage === "reg_data") {
     return (
       <>

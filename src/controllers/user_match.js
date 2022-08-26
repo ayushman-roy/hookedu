@@ -5,7 +5,16 @@ import { time_convert } from "../checks/user_match.js";
 
 export const user_match = async (req, res) => {
   try {
-    const { batch, gender, type } = req.body;
+    var { batch, gender, type } = req.body;
+    if (batch === "ANY") {
+      batch = false;
+    }
+    if (gender === "ANY") {
+      gender = false;
+    }
+    if (type === "ANY") {
+      type = false;
+    }
     const current_user = await User.findOne({ where: { email: req.user } });
     const current_time = new Date().getTime();
     const time_diff =
@@ -15,6 +24,7 @@ export const user_match = async (req, res) => {
       return res.json({
         msg: `You Have Exhausted Your Searches! Please Wait ${time_left} Hours Before Searching Again!`,
         success: false,
+        final_user: {},
       });
     }
     var userPool, final_user;
@@ -94,31 +104,48 @@ export const user_match = async (req, res) => {
       userPool.splice(index, 1);
     }
     if (final_user) {
-      var current_user_matches = current_user.matches;
       var final_user_matches = final_user.matches;
+      final_user_matches.push(String(current_user.email));
+      var current_user_matches = current_user.matches;
+      current_user_matches.push(String(final_user.email));
       final_user.set({
-        matches: final_user_matches.push(String(current_user.email)),
+        matches: final_user_matches,
         last_match: current_time,
       });
       current_user.set({
         type: type,
-        matches: current_user_matches.push(String(final_user.email)),
+        matches: current_user_matches,
         last_search: current_time,
         last_match: current_time,
       });
       await final_user.save();
       await current_user.save();
-      // TODO: return final_user.profile
+      return res.json({
+        msg: null,
+        success: true,
+        final_user: {
+          name: final_user.name,
+          age: final_user.age,
+          gender: final_user.gender,
+          batch: final_user.batch,
+          school: final_user.school,
+          type: final_user.type,
+          image_url: final_user.image_url,
+          bio: final_user.bio,
+        },
+      });
     } else {
       return res.json({
         msg: "No Matching Users Found. Please Change Your Search Preferences!",
         success: false,
+        final_user: {},
       });
     }
   } catch (error) {
     return res.json({
       msg: "Something Went Wrong! Please Try Again!",
       success: false,
+      final_user: {},
     });
   }
 };

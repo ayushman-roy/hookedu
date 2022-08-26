@@ -36,6 +36,9 @@ export default function Login() {
     }
   };
 
+  // TODO: if (message) => render message as flash alert
+  // message_type: "Email Not Found! Please Register First!"...
+
   return (
     <>
       <Container component="main" maxWidth="xs">
@@ -53,8 +56,8 @@ export default function Login() {
             color="primary"
             sx={{
               fontSize: "50px",
-              fontWeight: 'bold',
-              letterSpacing: '7px',
+              fontWeight: "bold",
+              letterSpacing: "7px",
               Color: "secondary",
               mb: 3,
               fontFamily: "Covered By Your Grace",
