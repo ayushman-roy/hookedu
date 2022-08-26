@@ -1,0 +1,8 @@
+backend: user_match, user_update, chats [global and pvt], leftover tasks & deploy
+    background: frontend-backend-integration skeletons & marketing
+
+frontend: convert skeletons to UI, logical rendering, cosmetic & leftover tasks
+    background: tests [script-based and browser-based] & marketing
+
+beta   : 16/10/22
+launch : 01/11/22
