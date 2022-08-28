@@ -40,12 +40,12 @@ export default function User_Match() {
     return (
       <>
         <form onSubmit={(e) => post_user_match(e)}>
-          {/* add every input as box_radio && ANY as both label & value */}
+          {/* add every input as radio_box && ANY is both label & value */}
           {/* Batch_Values: usual_options + ANY */}
           Batch: <input type="text" name="batch" id="" />
           {/* Gender_Values: Male, Female + ANY */}
           Gender: <input type="text" name="gender" id="" />
-          {/* Type_Values: date, friend, study, gym, mess + ANY */}
+          {/* Type_Values: date, friend, study partner, gym buddy, mess partner + ANY */}
           Type: <input type="text" name="type" id="" />
           <input type="submit" name="" id="" />
         </form>
