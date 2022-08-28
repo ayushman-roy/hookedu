@@ -1,8 +1,10 @@
 import React from "react";
 import { useState } from "react";
+import User_Profile from "./User_Profile";
 
 export default function User_Match() {
   const [UserFound, setUserFound] = useState(false);
+  const [FinalUser, setFinalUser] = useState({});
   const [message, setMessage] = useState(null);
 
   const post_user_match = async (e) => {
@@ -22,6 +24,7 @@ export default function User_Match() {
     const { msg, success, final_user } = response;
     if (success) {
       setUserFound(true);
+      setFinalUser(final_user);
       e.target.reset();
     } else {
       setMessage(msg);
@@ -32,7 +35,7 @@ export default function User_Match() {
   // messages_type: "Something Went Wrong! Please Try Again!"...
 
   if (UserFound) {
-    // TODO: render final_user.profile using props [from final_user obj]
+    return <User_Profile final_user={FinalUser} />;
   } else {
     return (
       <>
