@@ -113,11 +113,13 @@ export const user_match = async (req, res) => {
         last_match: current_time,
       });
       current_user.set({
-        type: type,
+        type: String(type),
         matches: current_user_matches,
         last_search: current_time,
         last_match: current_time,
       });
+      final_user.changed("matches", true);
+      current_user.changed("matches", true);
       await final_user.save();
       await current_user.save();
       return res.json({

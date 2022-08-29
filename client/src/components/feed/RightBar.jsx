@@ -5,9 +5,8 @@ export default function RightBar() {
   return (
     <div>
       <Box
-        sx={{ display: "flex", display: { xs: "none", sm: "block" } }}
+        sx={{ display: ["flex", { xs: "none", sm: "block" }] }}
         bgcolor="yellow"
-        
         p={2}
       >
         Right-Sidebar

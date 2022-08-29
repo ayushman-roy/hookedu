@@ -1,7 +1,7 @@
 import Login from "./views/Home";
 import Register from "./views/Register";
 import Feed from "./views/Feed";
-import User_Match from "./components/backend/User_Match";
+import UserMatch from "./components/backend/User_Match";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -35,7 +35,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/hook" element={<Register />} />
           <Route path="/feed" element={<Feed />} />
-          <Route path="/match" element={<User_Match />} />
+          <Route path="/match" element={<UserMatch />} />
         </Routes>
       </Router>
     </ThemeProvider>

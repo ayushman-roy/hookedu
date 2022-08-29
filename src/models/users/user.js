@@ -47,9 +47,10 @@ export const User = database.define("user", {
   },
   type: {
     type: Sequelize.STRING,
+    defaultValue: "false",
   },
   last_search: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     defaultValue: 0,
   },
   matches: {
@@ -57,7 +58,7 @@ export const User = database.define("user", {
     defaultValue: [],
   },
   last_match: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     defaultValue: 0,
   },
   image_url: {

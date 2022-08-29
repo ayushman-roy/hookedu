@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import User_Profile from "./User_Profile";
+import UserProfile from "./User_Profile";
 
-export default function User_Match() {
+export default function UserMatch() {
   const [UserFound, setUserFound] = useState(false);
   const [FinalUser, setFinalUser] = useState({});
   const [message, setMessage] = useState(null);
@@ -35,8 +35,10 @@ export default function User_Match() {
   // messages_type: "Something Went Wrong! Please Try Again!"...
 
   if (UserFound) {
-    return <User_Profile final_user={FinalUser} />;
+    console.log(message);
+    return <UserProfile final_user={FinalUser} />;
   } else {
+    console.log(message);
     return (
       <>
         <form onSubmit={(e) => post_user_match(e)}>

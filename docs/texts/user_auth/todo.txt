@@ -3,8 +3,8 @@ if console.log(msg): error_message render as alert [Loader, Home, Register]
 blur resend_otp button after disable
 cosmetic improvements
 fix bugs: 
-    - recieved true for non-boolean attribute [email; Register.jsx] - FIXED
     - able to select male/female when custom gender selected [whatsapp; Register.jsx]
+    - custom gender only sends "other" as gender, not input values [whatsapp; Register.jsx]
 
 for Ayushman:
 code documentation 

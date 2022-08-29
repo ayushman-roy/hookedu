@@ -1,4 +1,4 @@
-backend: user_match, user_update, chats [global and pvt], leftover tasks & deploy
+backend: user_update, chats [global and pvt], leftover tasks & deploy
     background: frontend-backend-integration skeletons & marketing
 
 frontend: convert skeletons to UI, logical rendering, cosmetic & leftover tasks
