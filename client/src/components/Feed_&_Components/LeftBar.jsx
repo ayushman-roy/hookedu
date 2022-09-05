@@ -8,6 +8,7 @@ import {
   ListItemButton,
   ListItemText,
   Typography,
+  Avatar,
 } from "@mui/material";
 
 //  Icons Impor
@@ -27,6 +28,8 @@ export default function LeftBar() {
           flexDirection: "column",
         }}
       >
+        <Box sx={{position:"fixed",}}>
+
         <Box
           component="div"
           sx={{
@@ -40,14 +43,14 @@ export default function LeftBar() {
             color="primary"
             sx={{
               ml: "16px",
-              fontSize: "25px",
+              fontSize: "22px",
               fontWeight: "bold",
               Color: "primary",
               letterSpacing: "2px",
               fontFamily: "Covered By Your Grace",
-              mb: "20px",
+              mb: "23px",
             }}
-          >
+            >
             Hookedu
           </Typography>
           <List
@@ -62,19 +65,24 @@ export default function LeftBar() {
             <ListItemButton
               sx={{
                 borderRadius: "100px",
-                fontSize: "25px",
-                mb: "5px",
+                fontSize: "22px",
+                mb: "2px",
                 alignItems: "left",
+                p:"8px",
               }}
-            >
+              >
               <ListItemIcon>
-                <OtherHousesOutlinedIcon sx={{ fontSize: "26px" }} />
+                <OtherHousesOutlinedIcon sx={{ fontSize: "23px" }} />
               </ListItemIcon>
               <ListItemText
                 primary={
                   <Typography
-                    variant="div"
-                    sx={{ fontSize: "26px", fontFamily: "Amiko", fontWeight:'500', }}
+                  variant="div"
+                  sx={{
+                    fontSize: "23px",
+                    fontFamily: "Amiko",
+                    fontWeight: "500",
+                  }}
                   >
                     Home
                   </Typography>
@@ -85,20 +93,25 @@ export default function LeftBar() {
             <ListItemButton
               sx={{
                 borderRadius: "100px",
-                mb: "5px",
+                mb: "2px",
                 alignItems: "left",
+                p:"8px",
 
-                fontSize: "25px",
+                fontSize: "22px",
               }}
             >
               <ListItemIcon>
-                <PermIdentityOutlinedIcon sx={{ fontSize: "26px" }} />
+                <PermIdentityOutlinedIcon sx={{ fontSize: "23px" }} />
               </ListItemIcon>
               <ListItemText
                 primary={
                   <Typography
                     variant="div"
-                    sx={{ fontSize: "26px", fontFamily: "Amiko", fontWeight:'500', }}
+                    sx={{
+                      fontSize: "23px",
+                      fontFamily: "Amiko",
+                      fontWeight: "500",
+                    }}
                   >
                     Profile
                   </Typography>
@@ -111,18 +124,23 @@ export default function LeftBar() {
                 borderRadius: "100px",
 
                 alignItems: "left",
-                mb: "5px",
-                fontSize: "25px",
+                p:"8px",
+                mb: "2px",
+                fontSize: "22px",
               }}
             >
               <ListItemIcon>
-                <BookmarkBorderOutlinedIcon sx={{ fontSize: "26px" }} />
+                <BookmarkBorderOutlinedIcon sx={{ fontSize: "23px" }} />
               </ListItemIcon>
               <ListItemText
                 primary={
                   <Typography
                     variant="div"
-                    sx={{ fontSize: "26px", fontFamily: "Amiko", fontWeight:'500', }}
+                    sx={{
+                      fontSize: "23px",
+                      fontFamily: "Amiko",
+                      fontWeight: "500",
+                    }}
                   >
                     Bookmark
                   </Typography>
@@ -134,19 +152,24 @@ export default function LeftBar() {
               sx={{
                 borderRadius: "100px",
 
-                mb: "5px",
+                mb: "2px",
                 alignItems: "left",
-                fontSize: "25px",
+                p:"8px",
+                fontSize: "22px",
               }}
             >
               <ListItemIcon>
-                <NotificationsOutlinedIcon sx={{ fontSize: "26px" }} />
+                <NotificationsOutlinedIcon sx={{ fontSize: "23px" }} />
               </ListItemIcon>
               <ListItemText
                 primary={
                   <Typography
                     variant="div"
-                    sx={{ fontSize: "26px", fontFamily: "Amiko", fontWeight:'500', }}
+                    sx={{
+                      fontSize: "23px",
+                      fontFamily: "Amiko",
+                      fontWeight: "500",
+                    }}
                   >
                     Notification{" "}
                   </Typography>
@@ -158,19 +181,24 @@ export default function LeftBar() {
               sx={{
                 borderRadius: "100px",
 
-                mb: "5px",
+                mb: "2px",
                 alignItems: "left",
-                fontSize: "25px",
+                p:"8px",
+                fontSize: "22px",
               }}
             >
               <ListItemIcon>
-                <EmailOutlinedIcon sx={{ fontSize: "26px" }} />
+                <EmailOutlinedIcon sx={{ fontSize: "23px" }} />
               </ListItemIcon>
               <ListItemText
                 primary={
                   <Typography
                     variant="div"
-                    sx={{ fontSize: "26px", fontFamily: "Amiko", fontWeight:'500', }}
+                    sx={{
+                      fontSize: "23px",
+                      fontFamily: "Amiko",
+                      fontWeight: "500",
+                    }}
                   >
                     Messages
                   </Typography>
@@ -182,19 +210,24 @@ export default function LeftBar() {
               sx={{
                 borderRadius: "100px",
 
-                mb: "5px",
+                mb: "2px",
                 alignItems: "left",
-                fontSize: "25px",
+                p:"8px",
+                fontSize: "22px",
               }}
             >
               <ListItemIcon>
-                <SettingsIcon sx={{ fontSize: "26px" }} />
+                <SettingsIcon sx={{ fontSize: "23px" }} />
               </ListItemIcon>
               <ListItemText
                 primary={
                   <Typography
                     variant="div"
-                    sx={{ fontSize: "26px", fontFamily: "Amiko", fontWeight:'500', }}
+                    sx={{
+                      fontSize: "23px",
+                      fontFamily: "Amiko",
+                      fontWeight: "500",
+                    }}
                   >
                     {" "}
                     Settings{" "}
@@ -202,7 +235,38 @@ export default function LeftBar() {
                 }
               />
             </ListItemButton>
+
+            <ListItemButton
+              sx={{
+                borderRadius: "100px",
+
+                mb: "2px",
+                alignItems: "left",
+                p:"8px",
+                fontSize: "22px",
+              }}
+            >
+              <ListItemIcon>
+              <Avatar sx={{fontSize:"23px", backgroundColor:"red"}}>S</Avatar>
+              </ListItemIcon>
+              <ListItemText
+                primary={
+                  <Typography
+                    variant="div"
+                    sx={{
+                      fontSize: "16px",
+                      fontFamily: "Amiko",
+                      fontWeight: "500",
+                    }}
+                  >
+                    <i>@Shubhamkrsingh</i> 
+                  </Typography>
+                }
+              />
+            </ListItemButton>
+
           </List>
+        </Box>
         </Box>
       </Container>
     </div>

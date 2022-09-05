@@ -1,5 +1,20 @@
 *{
     padding: 0;
     margin: 0;
-    /* text-align: left; */
+
+}
+.post-input{
+    border: 0px;
+    padding: 8px;
+    margin: auto;
+    box-shadow: none;
+    width: 90%;
+    font-size: 22px;
+    overflow: wrap;
+}
+
+.post-input:focus{
+    outline: none !important;
+    border-color: white;
+    box-shadow: none;
 }
