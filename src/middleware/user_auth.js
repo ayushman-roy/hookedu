@@ -5,14 +5,14 @@ export const verify_user = (req, res, next) => {
   // get tokens from cookies
   const { accessToken, refreshToken } = req.cookies;
   // if accessToken present: verify by JWT
-  // if accepted: allow access, pass decoded email as req.email
+  // if accepted: allow access, pass decoded email as req.user
   // else: check next if statement
   // accessToken_verified allows if-statement switch without overlaps
   var accessToken_verified = false;
   if (accessToken) {
     jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
       if (err) return;
-      req.email = decoded.email;
+      req.user = decoded.email;
       accessToken_verified = true;
     });
   }
@@ -42,7 +42,7 @@ export const verify_user = (req, res, next) => {
           maxAge: 30 * 60 * 1000,
           // secure: true
         });
-        req.email = email;
+        req.user = email;
         next();
       }
     );

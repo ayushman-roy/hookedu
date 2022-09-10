@@ -79,7 +79,6 @@ export default function Register() {
       name: form.name.value,
       age: form.age.value,
       gender: form.gender.value,
-      interest: form.interest.value,
       school: form.school.value,
       batch: form.batch.value,
       bio: form.bio.value,
@@ -111,6 +110,9 @@ export default function Register() {
       document.getElementById("btn-disable").disabled = false;
     }, 20000);
   }
+
+  // TODO: if (message) => render message as flash alert [for every case]
+  // messages_type: "You Have Registered Already!"...
 
   if (stage === "reg_data") {
     return (
@@ -225,41 +227,6 @@ export default function Register() {
                       "Custom"
                     )
                   }
-                />
-              </RadioGroup>
-
-              <InputLabel
-                required
-                sx={{
-                  m: 1,
-                }}
-              >
-                Interested in?
-              </InputLabel>
-              <RadioGroup
-                name="interest"
-                row
-                sx={{
-                  m: 1,
-                }}
-              >
-                <FormControlLabel
-                  value="Women"
-                  control={<Radio />}
-                  label="Women"
-                  name="interest"
-                />
-                <FormControlLabel
-                  value="Men"
-                  name="interest"
-                  control={<Radio />}
-                  label="Men"
-                />
-                <FormControlLabel
-                  value="Everyone"
-                  control={<Radio />}
-                  label="Everyone"
-                  name="interest"
                 />
               </RadioGroup>
               <TextField

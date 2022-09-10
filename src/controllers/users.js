@@ -35,7 +35,7 @@ export const pre_register_post = async (req, res) => {
     try {
       pre_user.set({ password: hashPassword, otp: user_otp });
       await pre_user.save();
-      await send_otp(email, user_otp);
+      send_otp(email, user_otp);
       // cookies for user_auth data
       return res
         .cookie("email", email, { httpOnly: true }) // secure: true
@@ -61,7 +61,7 @@ export const pre_register_post = async (req, res) => {
         password: hashPassword,
         otp: user_otp,
       });
-      await send_otp(email, user_otp);
+      send_otp(email, user_otp);
       // cookies for user_auth data
       return res
         .cookie("email", email, { httpOnly: true }) // secure: true
@@ -113,7 +113,7 @@ export const resend_otp = async (req, res) => {
 
 // create end_user
 export const register_post = async (req, res) => {
-  const { name, age, gender, interest, school, batch, bio } = req.body;
+  const { name, age, gender, school, batch, bio } = req.body;
   const { email, password, otp_verified } = req.cookies;
   if (otp_verified) {
     try {
@@ -134,7 +134,6 @@ export const register_post = async (req, res) => {
         password: password,
         age: age,
         gender: gender,
-        interest: interest,
         school: school,
         batch: batch,
         bio: bio,

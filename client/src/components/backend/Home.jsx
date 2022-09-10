@@ -27,9 +27,6 @@ export default function Login() {
     }
   };
 
-  // TODO: if (message) => render message as flash alert
-  // message_type: "Email Not Found! Please Register First!"...
-
   return (
     <>
       <form onSubmit={(e) => post_login_data(e)}>

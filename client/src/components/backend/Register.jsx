@@ -59,7 +59,6 @@ export default function Register() {
       name: form.name.value,
       age: form.age.value,
       gender: form.gender.value,
-      interest: form.interest.value,
       school: form.school.value,
       batch: form.batch.value,
       bio: form.bio.value,
@@ -88,9 +87,6 @@ export default function Register() {
     setMessage(msg);
   }
 
-  // TODO: if (message) => render message as flash alert [for every case]
-  // messages_type: "You Have Registered Already!"...
-
   if (stage == "reg_data") {
     return (
       <>
@@ -98,10 +94,6 @@ export default function Register() {
           Name: <input name="name" id="" />
           Age: <input type="number" name="age" id="" />
           Gender: <input type="text" name="gender" id="" />
-          Interest:
-          <input type="radio" name="interest" id="" value="Men" />
-          <input type="radio" name="interest" id="" value="Women" />
-          <input type="radio" name="interest" id="" value="Everyone" />
           School: <input type="text" name="school" id="" />
           Batch: <input type="text" name="batch" id="" />
           Bio: <input type="text" name="bio" id="" />
@@ -109,9 +101,7 @@ export default function Register() {
         </form>
       </>
     );
-  }
-  // TODO: resend_otp() => afterClick => disable button for 60s
-  else if (stage == "verify_otp") {
+  } else if (stage == "verify_otp") {
     return (
       <>
         <form onSubmit={(e) => post_verify_otp_data(e)}>

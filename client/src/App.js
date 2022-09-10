@@ -1,6 +1,7 @@
 import Login from "./views/Home";
 import Register from "./views/Register";
 import Feed from "./views/Feed";
+import UserMatch from "./components/backend/User_Match";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -15,17 +16,15 @@ const theme = createTheme({
       main: "#bd0f15",
     },
   },
-  
 
   typography: {
     fontFamily: [
-      'Amiko',
-      'Covered By Your Grace',
-      'BlinkMacSystemFont',
-      'sans-serif',
-    ].join(','),
+      "Amiko",
+      "Covered By Your Grace",
+      "BlinkMacSystemFont",
+      "sans-serif",
+    ].join(","),
   },
-
 });
 
 function App() {
@@ -36,6 +35,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/hook" element={<Register />} />
           <Route path="/feed" element={<Feed />} />
+          <Route path="/match" element={<UserMatch />} />
         </Routes>
       </Router>
     </ThemeProvider>
