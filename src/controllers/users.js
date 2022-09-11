@@ -210,3 +210,90 @@ export const login_post = async (req, res) => {
     });
   }
 };
+
+export const user_update_get = async (req, res) => {
+  try {
+    const current_user = await User.findOne({ where: { email: req.user } });
+    if (current_user) {
+      return res.json({
+        msg: null,
+        success: true,
+        user: {
+          name: current_user.name,
+          age: current_user.age,
+          gender: current_user.gender,
+          school: current_user.school,
+          batch: current_user.batch,
+          bio: current_user.bio,
+          type: current_user.type,
+          image_url: current_user.image_url,
+        },
+      });
+    } else {
+      return res.json({
+        msg: "User Not Found! Please Login or Register First!",
+        success: false,
+        user: {},
+      });
+    }
+  } catch (error) {
+    return res.json({
+      msg: "Something Went Wrong. Please Try Again!",
+      success: false,
+      user: {},
+    });
+  }
+};
+
+export const user_update_post = async (req, res) => {
+  try {
+    // only allow change of photo, gender & bio for now
+    const { name, age, gender, school, batch, bio, type } = req.body;
+    const current_user = await User.findOne({ where: { email: req.user } });
+    if (current_user) {
+      switch (true) {
+        case current_user.name != name:
+          current_user.set({ name: name });
+        case current_user.age != age:
+          current_user.set({ age: age });
+        case current_user.gender != gender:
+          current_user.set({ gender: gender });
+        case current_user.school != school:
+          current_user.set({ school: school });
+        case current_user.batch != batch:
+          current_user.set({ batch: batch });
+        case current_user.bio != bio:
+          current_user.set({ bio: bio });
+        case current_user.type != type:
+          current_user.set({ type: type });
+        default:
+          break;
+      }
+      if (current_user.changed()) {
+        await current_user.save();
+        return res.json({
+          msg: "User Successfully Updated!",
+          success: true,
+        });
+      } else {
+        return res.json({
+          msg: "No Changes Made. Please Make Changes Before Updating Profile!",
+          success: false,
+        });
+      }
+    } else {
+      return res.json({
+        msg: "User Not Found! Please Login or Register First!",
+        success: false,
+      });
+    }
+  } catch (error) {
+    return res.json({
+      msg: "Something Went Wrong. Please Try Again!",
+      success: false,
+    });
+  }
+};
+
+// TODO: forgot password controller
+// get user_email > check DB > send OTP > verify
