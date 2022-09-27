@@ -1,7 +1,7 @@
 import Login from "./views/Home";
 import Register from "./views/Register";
 import Feed from "./views/Feed";
-import UserMatch from "./components/backend/User_Match";
+import UserMatch from "./views/User_Match";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -14,6 +14,9 @@ const theme = createTheme({
     },
     secondary: {
       main: "#bd0f15",
+    },
+    white: {
+      main: "#FFFFFF",
     },
   },
 
