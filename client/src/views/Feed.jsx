@@ -10,10 +10,10 @@ import { Box } from "@mui/material";
 
 const Feed = () => {
   return (
-    <>
+    <Box component="div" sx={{width:"100vw",}}>
       <Box
         sx={{
-          width: { xs: "102vw", md: "0%" },
+          width: { xs: "100vw", md: "0%" },
           display: { xs: "block", sm: "none", md: "none" },
           mb: 7,
         }}
@@ -33,7 +33,7 @@ const Feed = () => {
 
 
 
-      <Box sx={{ display: "flex", flexDirectoin: "row", zIndex: "-1" }}>
+      <Box sx={{ display: "flex", flexDirectoin: "row", }}>
         <Box
           sx={{
             width: { xs: "0%", md: "25%" },
@@ -65,7 +65,7 @@ const Feed = () => {
       >
         <Bottombar />
       </Box>
-    </>
+    </Box>
   );
 };
 

@@ -26,7 +26,7 @@ export default function Topbar() {
         <AppBar color="white"
         sx={{
           p:0,
-          boxShadow:0,
+          // boxShadow:"0px 15px 10px -15px #111",
           borderBottom:"0.1px solid #D3D3D3"
         }}
         >
@@ -36,7 +36,7 @@ export default function Topbar() {
               edge="start"
               color="inherit"
               aria-label="menu"
-              sx={{ mr: 2 }}
+              // sx={{ mr: 2 }}
             >
               <Avatar  sx={{width:35, height:35, bgcolor:"black"}}>S</Avatar>
             </IconButton>
