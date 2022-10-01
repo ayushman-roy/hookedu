@@ -1,7 +1,6 @@
 import React from "react";
 import Loader from "../components/feed/Loader";
 // import RightBar from "../components/feed/RightBar";
-import NavbarMobile from "../components/feed/Navbar-mobile";
 import LeftBar from "../components/feed/LeftBar";
 import "../components/feed/Feed.css";
 import Bottombar from "../components/feed/Bottombar";
@@ -21,15 +20,7 @@ const Feed = () => {
         <Topbar />
       </Box>
 
-      {/* <Box
-        sx={{
-          width: { xs: "auto", sm:"none", md: "0%" },
-          display: { xs: "block", sm: "none", md: "none" },
-          zIndex: 1,
-        }}
-      >
-        <NavbarMobile />
-      </Box> */}
+
 
 
 

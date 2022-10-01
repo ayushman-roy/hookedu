@@ -5,12 +5,9 @@ import React from "react";
 import { Box, Container } from "@mui/system";
 
 import OtherHousesOutlinedIcon from "@mui/icons-material/OtherHousesOutlined";
-import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
-import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import SettingsIcon from "@mui/icons-material/Settings";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import CottageRoundedIcon from "@mui/icons-material/CottageRounded";
 
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
@@ -42,17 +39,21 @@ export default function Bottombar() {
       >
         <BottomNavigationAction
           value="Home"
+          href="/feed"
           icon={< OtherHousesOutlinedIcon />}
         />
         <BottomNavigationAction
           value="Notifications"
+          href="/activity"
           icon={<NotificationsOutlinedIcon />}
         />
         <BottomNavigationAction
           value="Settings"
+          href="/settings"
           icon={<SettingsIcon />}
         />
         <BottomNavigationAction
+          href="/chat"
           value="Messages"
           icon={<EmailOutlinedIcon />}
         />
