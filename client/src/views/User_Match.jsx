@@ -5,6 +5,8 @@ import "../components/feed/Feed.css";
 //  Mui Imports
 import { useNavigate } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
+import InputLabel from "@mui/material/InputLabel";
+import TextField from "@mui/material/TextField";
 import CssBaseline from "@mui/material/CssBaseline";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
@@ -67,10 +69,9 @@ export default function UserMatch() {
           <CssBaseline />
           <Box
             sx={{
-              marginTop: 4,
+              marginTop: 2,
               display: "flex",
               flexDirection: "column",
-              alignItems: "center",
             }}
           >
             <Typography
@@ -80,205 +81,177 @@ export default function UserMatch() {
               sx={{
                 fontFamily: "Covered By Your Grace",
                 fontSize: "2rem",
+                margin: "auto",
               }}
             >
-              Find Your Match.
+              Find Your Match
             </Typography>
 
             <form onSubmit={(e) => post_user_match(e)}>
-              <Box component="div" sx={{ mb: 1, pb: 1, pt: "8px" }}>
-                {/* <Typography variant="div" color="black">
-                  Interested in?
-                </Typography> */}
-
-                <FormControl>
-                  <FormLabel
-                  name = "gender"
-                    id="demo-radio-buttons-group-label"
-                    sx={{
-                      mt:1,
-                      fontWeight: "bold",
-                      fontSize:"1.6rem"
-                    }}
-                  >
-                    Gender
-                  </FormLabel>
-                  <RadioGroup
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    name="gender"
-                  >
-                    <FormControlLabel
-                    name="gender"
-                    value="female"
-                      control={<Radio />}
-                      label="Female"
-                    />
-                    <FormControlLabel
-                    name="gender"
-                    value="male"
-                      control={<Radio />}
-                      label="Male"
-                    />
-                    <FormControlLabel
-                    name="gender"
-                    value="other"
-                      control={<Radio />}
-                      label="Other"
-                    />
-                  </RadioGroup>
-                </FormControl>
-
-                <FormControl>
-                <FormLabel
-                    name="batch"
-                    id="demo-radio-buttons-group-label"
-                    sx={{
-                      mt:1,
-                      fontWeight: "bold",
-                      fontSize:"1.6rem"
-                    }}
-                  >
-                    Majors
-                  </FormLabel>
-
-                <FormGroup row>
-                  <FormControlLabel
-                    name="batch"
-                    control={<Checkbox value="Chemistry"  />}
-                    label="Chemistry" 
-                  />
-                  <FormControlLabel
-                    name="batch"
-                    control={<Checkbox/>}
-                    label="Biology" 
-                    value="Biology"
-                  />
-                  <FormControlLabel
-                    name="batch"
-                    control={<Checkbox/>}
-                    label="Computer Science" 
-                    value="Computer Science"
-                  />
-                  <FormControlLabel
-                    name="batch"
-                    control={<Checkbox/>}
-                    label="Economics" 
-                    value="Economics"
-                  />
-                  <FormControlLabel
-                    name="batch"
-                    control={<Checkbox/>}
-                    label="English" value="English"
-                  />
-                  <FormControlLabel
-                    name="batch"
-                    control={<Checkbox/>}
-                    label="History" value="History"
-                  />
-                  <FormControlLabel
-                    name="batch"
-                    control={<Checkbox/>}
-                    label="Philosophy" value="Philosophy"
-                  />
-                  <FormControlLabel
-                    name="batch"
-                    control={<Checkbox/>}
-                    label="Mathematics" value="Mathematics"
-                  />
-                  <FormControlLabel
-                    name="batch"
-                    control={<Checkbox/>}
-                    label="Physics" value="Physics"
-                  />
-                  <FormControlLabel
-                    name="batch"
-                    control={<Checkbox/>}
-                    label="Political Science" value="Political Science"
-                  />
-                  <FormControlLabel
-                    name="batch"
-                    control={<Checkbox/>}
-                    label="Psychology" value="Psychology"
-                  />
-                  <FormControlLabel
-                    name="batch"
-                    control={<Checkbox/>}
-                    label="Sociology/Anthropology" value="Sociology/Anthropology"
-                  />
-                </FormGroup>
-                </FormControl>
-
-                <FormControl>
-                <FormLabel
-                    name="type"
-                    sx={{
-                      mt:1,
-                      fontWeight: "bold",
-                      fontSize:"1.6rem"
-                    }}
-                  >
-                    Searching for?
-                  </FormLabel>
-
-                <FormGroup row>
-                  <FormControlLabel
-                    name="type"
-                    control={<Checkbox defaultChecked />}
-                    label="Date" value="Date"
-                  />
-                  <FormControlLabel
-                    name="type"
-                    control={<Checkbox/>}
-                    label="Study Partner" value="Study Partner"
-                  />
-                  <FormControlLabel
-                    name="type"
-                    control={<Checkbox/>}
-                    label="Gym Buddy" value="Gym Buddy"
-                  />
-                  <FormControlLabel
-                    name="type"
-                    control={<Checkbox/>}
-                    label="Mess Partner" value="Mess Partner"
-                  />
-                  <FormControlLabel
-                    name="type"
-                    control={<Checkbox/>}
-                    label="Coding Buddy" value="Coding Buddy"
-                  />
-                  <FormControlLabel
-                    name="type"
-                    control={<Checkbox/>}
-                    label="Friend" value="Friend"
-                  />
-                  <FormControlLabel
-                    name="type"
-                    control={<Checkbox/>}
-                    label="Party" value="Party"
-                  />
-                  <FormControlLabel
-                    name="type"
-                    control={<Checkbox/>}
-                    label="Fuck buddy" value="Fuck buddy"
-                  />
-                  <FormControlLabel
-                    name="type"
-                    control={<Checkbox/>}
-                    label="High Buddy" value="High Buddy"
-                  />
-                </FormGroup>
-                </FormControl>
-                
-
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2, borderRadius: "15px" }}
-                  startIcon={<SearchIcon />}
+              <Box
+                component="div"
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  mt: "6px",
+                }}
+              >
+                <InputLabel
+                  required
+                  sx={{
+                    m: 1,
+                    color: "black",
+                  }}
                 >
-                  Search Match
-                </Button>
+                  Interested in?
+                </InputLabel>
+                <RadioGroup
+                  name="gender"
+                  row
+                  sx={{
+                    m: 1,
+                    mt:0,
+                  }}
+                >
+                  <FormControlLabel
+                    value="Female"
+                    control={<Radio />}
+                    name="gender"
+                    label="Female"
+                  />
+                  <FormControlLabel
+                    value="Male"
+                    control={<Radio />}
+                    name="gender"
+                    label="Male"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Radio
+                        checked={checked}
+                        onClick={() => setChecked(!checked)}
+                        value="other"
+                        label="other"
+                      />
+                    }
+                    label={
+                      checked ? (
+                        <TextField
+                          required
+                          variant="standard"
+                          name="gender"
+                          // disabled={!checked}
+                          label="Custom"
+                          // onKeyDown={(e) => setOtherInfo(e.target.value)}
+                          sx={{
+                            m: 1,
+                            width: "100%",
+                          }}
+                        />
+                      ) : (
+                        "Custom"
+                      )
+                    }
+                  />
+                </RadioGroup>
+
+                <InputLabel
+                  required
+                  sx={{
+                    m: 1,
+                    color: "black",
+                  }}
+                >
+                  Majors
+                </InputLabel>
+
+                <FormGroup row 
+                name = "majors"
+                sx={{
+                  m:1,
+                  mt:0,                }}
+                >
+                  <FormControlLabel
+                    control={<Checkbox defaultChecked />}
+                    label="Any" 
+                  />
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label="CS"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label="Economics"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label="English"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label="Biology"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label="Physics"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label="Chemistry"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label="Sociology"
+                  />
+                </FormGroup>
+
+                <InputLabel
+                  required
+                  sx={{
+                    m: 1,
+                    color: "black",
+                  }}
+                >
+                  Looking For
+                </InputLabel>
+
+                <FormGroup row 
+                name = "majors"
+                sx={{
+                  m:1,
+                  mt:0,                }}
+                >
+                  <FormControlLabel
+                    control={<Checkbox defaultChecked />}
+                    label="Any" 
+                  />
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label="Mess partner"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label="Date"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label="Gym buddy"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label="Chill partner"
+                  />
+
+                </FormGroup>
+                <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2, borderRadius: "15px", backgroundColor:"black", }}
+             >
+                Search Match
+              </Button>
+
               </Box>
             </form>
           </Box>
