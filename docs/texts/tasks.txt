@@ -6,3 +6,5 @@ frontend: convert skeletons to UI, logical rendering, cosmetic & leftover tasks
 
 beta   : 16/10/22
 launch : 01/11/22
+
+Backend : In user match, make the changes as discussed over the mail and test it.
