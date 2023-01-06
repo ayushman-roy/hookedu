@@ -1,4 +1,5 @@
 import React from "react";
+import Post from "./Post"
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -22,25 +23,26 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ImageIcon from "@mui/icons-material/Image";
 import MapsUgcOutlinedIcon from "@mui/icons-material/MapsUgcOutlined";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 export default function Loader() {
-  const navigate = useNavigate();
+  // Backend Code
 
-  useEffect(() => {
-    async function get_data() {
-      const res = await fetch("/api/feed", { method: "GET" });
-      const response = await res.json();
-      const { msg, success } = response;
-      if (!success) {
-        navigate("/");
-      } else {
-        console.log(msg);
-      }
-    }
-    get_data();
-  }, [navigate]);
+  // const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   async function get_data() {
+  //     const res = await fetch("/api/feed", { method: "GET" });
+  //     const response = await res.json();
+  //     const { msg, success } = response;
+  //     if (!success) {
+  //       navigate("/");
+  //     } else {
+  //       console.log(msg);
+  //     }
+  //   }
+  //   get_data();
+  // }, [navigate]);
 
   // Post content
 
@@ -63,7 +65,7 @@ export default function Loader() {
   //   }),
   // }));
 
-  const label = { inputProps: { "aria-label": "Checkbox demo" } };
+
 
   return (
     <div>
@@ -74,12 +76,13 @@ export default function Loader() {
           alignItems: "center",
           flexDirection: "column",
           backgroundColor: "white",
+          p: 0,
+          // width: { xs: "100vw", sm: "auto", md: "100%" },
         }}
-        p={2}
       >
         <Box
           sx={{
-            display: "flex",
+            display: { xs: "none", sm: "none", md: "flex" },
             m: 3,
             // minwidth:"75%",
             width: { xs: "95%", sm: "55%", md: "80%" },
@@ -99,278 +102,12 @@ export default function Loader() {
           </IconButton>
         </Box>
 
-        {/* Code for the Post  */}
+           <Post/>
+           <Post/>
+           <Post/>
 
-        <Card sx={{ width: { xs: "100%", sm: "55%", md: "80%" } }}>
-          <CardHeader
-            avatar={
-              <Avatar
-                src="https://wallpaperaccess.com/full/1222833.jpg"
-                aria-label="recipe"
-              />
-            }
-            action={
-              <IconButton aria-label="settings">
-                <MoreVertIcon />
-              </IconButton>
-            }
-            title="Cristiano Ronaldo"
-            subheader="September 14, 2016"
-          />
-          <CardMedia
-            component="img"
-            height="350"
-            image="https://wallpaperaccess.com/full/1222833.jpg"
-            alt="Img"
-          />
 
-          <CardActions disableSpacing sx={{ mt: "0px", pt: "0px" }}>
-            {/* <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
-            </IconButton> */}
 
-            <Checkbox
-              {...label}
-              icon={<FavoriteBorder sx={{ color: "black" }} />}
-              checkedIcon={<Favorite sx={{ color: "red" }} />}
-            />
-
-            <IconButton aria-label="share">
-              <MapsUgcOutlinedIcon sx={{ color: "black" }} />
-            </IconButton>
-
-            <IconButton aria-label="share">
-              <ShareIcon sx={{ color: "black" }} />
-            </IconButton>
-          </CardActions>
-
-          <CardContent sx={{ pt: "0px", mt: "0px" }}>
-            <Typography variant="body2" color="black">
-              SUIIIII..... Hala Madrid
-            </Typography>
-          </CardContent>
-        </Card>
-
-        {/* Code for the Post  */}
-
-        <Card sx={{ width: { xs: "100%", sm: "55%", md: "80%" } }}>
-          <CardHeader
-            avatar={
-              <Avatar
-                src="https://media.gettyimages.com/photos/lionel-messi-of-barcelona-celebrates-after-scoring-his-sides-second-picture-id955410340?k=20&m=955410340&s=612x612&w=0&h=rV5HPhDWLqHCP9MihOcvrMQ0I1aLzm46Ahwwwpw7nd0="
-                aria-label="recipe"
-              />
-            }
-            action={
-              <IconButton aria-label="settings">
-                <MoreVertIcon />
-              </IconButton>
-            }
-            title="Lionel Messi"
-            subheader="September 14, 2016"
-          />
-          <CardMedia
-            component="img"
-            height="350"
-            image="https://media.gettyimages.com/photos/lionel-messi-of-barcelona-celebrates-after-scoring-his-sides-second-picture-id955410340?k=20&m=955410340&s=612x612&w=0&h=rV5HPhDWLqHCP9MihOcvrMQ0I1aLzm46Ahwwwpw7nd0="
-            alt="Img"
-          />
-
-          <CardActions disableSpacing sx={{ mt: "0px", pt: "0px" }}>
-            {/* <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
-            </IconButton> */}
-
-            <Checkbox
-              {...label}
-              icon={<FavoriteBorder sx={{ color: "black" }} />}
-              checkedIcon={<Favorite sx={{ color: "red" }} />}
-            />
-
-            <IconButton aria-label="share">
-              <MapsUgcOutlinedIcon sx={{ color: "black" }} />
-            </IconButton>
-
-            <IconButton aria-label="share">
-              <ShareIcon sx={{ color: "black" }} />
-            </IconButton>
-          </CardActions>
-
-          <CardContent sx={{ pt: "0px", mt: "0px" }}>
-            <Typography variant="body2" color="black">
-              Suiiii
-            </Typography>
-          </CardContent>
-        </Card>
-
-        <Card sx={{ width: { xs: "100%", sm: "55%", md: "80%" } }}>
-          <CardHeader
-            avatar={
-              <Avatar
-                src="https://media.gettyimages.com/photos/india-batsman-virat-kohli-celebrates-his-century-during-day-two-of-picture-id1009673208?k=20&m=1009673208&s=612x612&w=0&h=70D9EfmBajbvs__SoiTe3t86r-eotFKK_3asEHWJqg4="
-                aria-label="recipe"
-              />
-            }
-            action={
-              <IconButton aria-label="settings">
-                <MoreVertIcon />
-              </IconButton>
-            }
-            title="Virat Kohli"
-            subheader="September 14, 2016"
-          />
-          <CardMedia
-            component="img"
-            height="350"
-            image="https://media.gettyimages.com/photos/india-batsman-virat-kohli-celebrates-his-century-during-day-two-of-picture-id1009673208?k=20&m=1009673208&s=612x612&w=0&h=70D9EfmBajbvs__SoiTe3t86r-eotFKK_3asEHWJqg4="
-            alt="Img"
-          />
-
-          <CardActions disableSpacing sx={{ mt: "0px", pt: "0px" }}>
-            {/* <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
-            </IconButton> */}
-
-            <Checkbox
-              {...label}
-              icon={<FavoriteBorder sx={{ color: "black" }} />}
-              checkedIcon={<Favorite sx={{ color: "red" }} />}
-            />
-
-            <IconButton aria-label="share">
-              <MapsUgcOutlinedIcon sx={{ color: "black" }} />
-            </IconButton>
-
-            <IconButton aria-label="share">
-              <ShareIcon sx={{ color: "black" }} />
-            </IconButton>
-          </CardActions>
-
-          <CardContent sx={{ pt: "0px", mt: "0px" }}>
-            <Typography variant="body2" color="black">
-              SUIIIII..... Hala Madrid
-            </Typography>
-          </CardContent>
-        </Card>
-        {/* END OF POST */}
-        {/* Code for the Post  */}
-
-        <Card sx={{ width: { xs: "100%", sm: "55%", md: "80%" } }}>
-          <CardHeader
-            avatar={
-              <Avatar
-                src="https://wallpaperaccess.com/full/1222833.jpg"
-                aria-label="recipe"
-              />
-            }
-            action={
-              <IconButton aria-label="settings">
-                <MoreVertIcon />
-              </IconButton>
-            }
-            title="Cristiano Ronaldo"
-            subheader="September 14, 2016"
-          />
-          <CardMedia
-            component="img"
-            height="350"
-            image="https://wallpaperaccess.com/full/1222833.jpg"
-            alt="Img"
-          />
-
-          <CardActions disableSpacing sx={{ mt: "0px", pt: "0px" }}>
-            {/* <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
-            </IconButton> */}
-
-            <Checkbox
-              {...label}
-              icon={<FavoriteBorder sx={{ color: "black" }} />}
-              checkedIcon={<Favorite sx={{ color: "red" }} />}
-            />
-
-            <IconButton aria-label="share">
-              <MapsUgcOutlinedIcon sx={{ color: "black" }} />
-            </IconButton>
-
-            <IconButton aria-label="share">
-              <ShareIcon sx={{ color: "black" }} />
-            </IconButton>
-          </CardActions>
-
-          <CardContent sx={{ pt: "0px", mt: "0px" }}>
-            <Typography variant="body2" color="black">
-              SUIIIII..... Hala Madrid
-            </Typography>
-          </CardContent>
-        </Card>
-
-        <Card sx={{ width: { xs: "100%", sm: "55%", md: "80%" } }}>
-          <CardHeader
-            avatar={
-              <Avatar
-                src="https://wallpaperaccess.com/full/1222833.jpg"
-                aria-label="recipe"
-              />
-            }
-            action={
-              <IconButton aria-label="settings">
-                <MoreVertIcon />
-              </IconButton>
-            }
-            title="Cristiano Ronaldo"
-            subheader="September 14, 2016"
-          />
-          <CardMedia
-            component="img"
-            height="350"
-            image="https://wallpaperaccess.com/full/1222833.jpg"
-            alt="Img"
-          />
-
-          <CardActions disableSpacing sx={{ mt: "0px", pt: "0px" }}>
-            {/* <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
-            </IconButton> */}
-
-            <Checkbox
-              {...label}
-              icon={<FavoriteBorder sx={{ color: "black" }} />}
-              checkedIcon={<Favorite sx={{ color: "red" }} />}
-            />
-
-            <IconButton aria-label="share">
-              <MapsUgcOutlinedIcon sx={{ color: "black" }} />
-            </IconButton>
-
-            <IconButton aria-label="share">
-              <ShareIcon sx={{ color: "black" }} />
-            </IconButton>
-          </CardActions>
-
-          <CardContent sx={{ pt: "0px", mt: "0px" }}>
-            <Typography variant="body2" color="black">
-              SUIIIII..... Hala Madrid
-            </Typography>
-          </CardContent>
-        </Card>
-
-        {/* END OF POST */}
-        {/* Code for the Post  */}
-        {/* Code for plus button to post  */}
-        <IconButton  sx={{bgColor:"black"}}>
-          <AddCircleOutlineIcon color="primary" 
-          sx={{
-            width:44, 
-            height:44,
-            
-            displaly:"none",
-            position:"fixed",
-            bottom:"14px",
-            right:"8px",
-          }}
-           />
-        </IconButton>
       </Container>
     </div>
   );
